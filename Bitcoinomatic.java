@@ -14,7 +14,6 @@ class Bitcoinomatic {
 		// View is were our gui resides. It knows about the controller.
 		final View view = new View(controller);
 		
-		//view.setController(controller);
 		controller.setView(view);
 		controller.setModel(model);
 		model.addObserver(view);

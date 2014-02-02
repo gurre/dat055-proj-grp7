@@ -20,7 +20,7 @@ class Model extends Observable implements Runnable {
 		(new Thread(this)).start();
 	}
 	
-	// Called from java.lang.Thread
+	// Called from java.lang.Thread, before that Model.action()
 	public void run() {
 		System.out.println("   Running from thread");
 		System.out.println("   Sleeping...");
