@@ -30,6 +30,13 @@ public class View extends JFrame implements Observer {
 		setVisible(true);
 	}
 	
+	public void showAmount(){
+		
+		// From page 1 to page 2. The user must enter the amount BTC/SEK
+		
+	}
+	
+	
 	public void updateButton(String str){
 		System.out.println(">> View.updateButton()");
 		btn.setText(str);

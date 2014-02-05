@@ -5,6 +5,7 @@
 import java.util.Observable;          //Observable is here
 import java.lang.Runnable;
 import java.lang.Thread;
+import urn.ebay.api.PayPalAPI.*;
 
 // We observe this object from the view
 class Model extends Observable implements Runnable {
@@ -29,7 +30,9 @@ class Model extends Observable implements Runnable {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		// Tell the observer we have changed our state
 		setChanged();
+		// Update the view through Observer
 		notifyObservers(">> Changed from model! <<");
 		Thread.currentThread().interrupt();
 		System.out.println("   Thread interrupted");

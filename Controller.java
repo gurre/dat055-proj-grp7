@@ -16,6 +16,28 @@ public class Controller implements ActionListener {
 		System.out.println(">> Controller.Controller()");
 	}
 	
+	
+	public void preparePurchase(String email, String password){
+		if( !email.equals("") && !password.equals("") ){
+			//view.showAmount();
+		}else{
+			//view.showError("Felaktig e-post eller lösenord");
+		}
+		
+		
+	}
+	
+	public void buyBitcoinsForSEK(int amount){
+		
+	}
+	
+	public void purchaseComplete(){
+		// Send reciept
+		// Restart atm
+		
+	}
+	
+	
 	public void action(){
 		System.out.println(">> Controller.action()");
 		view.updateButton(">> Changed from controller! <<");
