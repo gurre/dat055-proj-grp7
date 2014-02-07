@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -29,6 +30,7 @@ public class View extends JFrame implements Observer {
 	private JTextField input1;
 	private JPasswordField passwordfield;
 	private JPanel view1;
+	private JOptionPane popup;
 	
 	
 	View(Controller c) {
@@ -80,6 +82,10 @@ public class View extends JFrame implements Observer {
 		
 		// From page 1 to page 2. The user must enter the amount BTC/SEK
 		
+	}
+	
+	public void showError(String error){
+		JOptionPane.showMessageDialog(view1, error);
 	}
 	
 	

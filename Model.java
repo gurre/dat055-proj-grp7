@@ -20,6 +20,13 @@ class Model extends Observable implements Runnable {
 		btcMarkets[0] = new BtcMarket();
 	}
 	
+	public static boolean placeHolderAccount(String email, String password){
+		if(email == "admin"){
+		return true;
+		}
+		return false;
+	}
+	
 	// Called from controller
 	public void action(){
 		System.out.println(">> Model.action()");

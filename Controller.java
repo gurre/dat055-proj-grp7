@@ -19,23 +19,24 @@ public class Controller implements ActionListener {
 
 	
 	public void preparePurchase(String email, String password){
-		if( !email.equals("") && !password.equals("") ){
-			//view.showAmount();
+		if( !email.equals("") && !password.equals("") && Model.placeHolderAccount(email,password) ){
+			view.showAmount();
 		}else{
-			//view.showError("Felaktig e-post eller lösenord");
+			view.showError("Email or Password is wrong.");
 		}
-		
-		
 	}
 	
-	public void buyBitcoinsForSEK(int amount){
-		
+	public void buyBitcoins(double amount, String valuta){
+		if( valuta.equals("SEK") || valuta.equals("BTC")&& amount < 0.00){
+			view.showAmount();
+		}else{
+			view.showError("Please enter a positive number.");
+		}
 	}
 	
 	public void purchaseComplete(){
-		// Send reciept
+		// Send receipt
 		// Restart atm
-		
 	}
 	
 	
