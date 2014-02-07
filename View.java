@@ -37,8 +37,6 @@ public class View extends JFrame implements Observer {
 		setController(c);
 		
 		// Init variables
-		
-		frame = new JFrame("Bitcoin");
 		sendBtn = new JButton("sendBtn");
 		title = new JLabel("Ange ditt PayPalkonto");
 		input1 = new JTextField("Epost");
@@ -69,14 +67,14 @@ public class View extends JFrame implements Observer {
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
 		
 		
-		Container frameContainer = frame.getContentPane();
+		Container frameContainer = getContentPane();
 		frameContainer.add(view1, BorderLayout.CENTER);
 		
 
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.pack();
-		frame.setVisible(true);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		pack();
+		setVisible(true);
 	}
 	
 	public void showAmount(){
