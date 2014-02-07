@@ -16,6 +16,7 @@ public class Controller implements ActionListener {
 		System.out.println(">> Controller.Controller()");
 	}
 	
+
 	
 	public void preparePurchase(String email, String password){
 		if( !email.equals("") && !password.equals("") ){
@@ -38,9 +39,12 @@ public class Controller implements ActionListener {
 	}
 	
 	
-	public void action(){
+
+	public void action(){	//en if-sats som undersöker om epost och lösenord är godkänt
+
 		System.out.println(">> Controller.action()");
 		view.updateButton(">> Changed from controller! <<");
+		
 		model.action();
 	}
 	

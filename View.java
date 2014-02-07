@@ -2,32 +2,81 @@
  * 
  */
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+
 import java.util.Observer;
 import java.util.Observable;
 
 public class View extends JFrame implements Observer {
 	private	Controller controller;
 	
-	private JButton btn;
+	private JFrame frame;
+	private JButton sendBtn;
+	private JButton returnBtn;
+	private JLabel title;
+	private JLabel kurs;
+	private JLabel sekVal;
+	private JLabel information;
+	private JTextField input1;
+	private JPasswordField passwordfield;
+	private JPanel view1;
+	
 	
 	View(Controller c) {
 		System.out.println(">> View.View()");
 		setController(c);
 		
 		// Init variables
-		btn = new JButton(" >> Click for action <<");
+		
+		frame = new JFrame("Bitcoin");
+		sendBtn = new JButton("sendBtn");
+		title = new JLabel("Ange ditt PayPalkonto");
+		input1 = new JTextField("Epost");
+		passwordfield = new JPasswordField();
+		view1 = new JPanel();
+		
 		
 		// Configure variables
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		// Controller handles all actions
-		btn.addActionListener(controller);
-		getContentPane().add(btn);
-		pack();
-		setVisible(true);
+
+		sendBtn.addActionListener(controller);
+		
+		
+		//put every object in a panel
+
+		
+		view1.add(title);
+		view1.add(input1);
+		view1.add(passwordfield);
+		view1.add(sendBtn);	
+		
+		
+		//set the size and layout of the panel
+		
+		view1.setPreferredSize(new Dimension(400, 100));
+		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
+		
+		
+		Container frameContainer = frame.getContentPane();
+		frameContainer.add(view1, BorderLayout.CENTER);
+		
+
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	public void showAmount(){
@@ -39,7 +88,8 @@ public class View extends JFrame implements Observer {
 	
 	public void updateButton(String str){
 		System.out.println(">> View.updateButton()");
-		btn.setText(str);
+		sendBtn.setText(str);
+		
 	}
 	
 	// Called from java.util.Observer through Model when the models has changed
