@@ -9,8 +9,15 @@ import java.lang.Thread;
 // We observe this object from the view
 class Model extends Observable implements Runnable {
 	
+	private PaymentProvider paymentProvider;
+	private BtcMarket[] btcMarkets;
+	
+	
 	Model(){
 		System.out.println(">> Model.Model()");
+		paymentProvider = new PaymentProvider();
+		btcMarkets = new BtcMarket[2];
+		btcMarkets[0] = new BtcMarket();
 	}
 	
 	// Called from controller
