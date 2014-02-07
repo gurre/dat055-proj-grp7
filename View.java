@@ -19,8 +19,7 @@ import java.util.Observable;
 
 public class View extends JFrame implements Observer {
 	private	Controller controller;
-	
-	private JFrame frame;
+
 	private JButton sendBtn;
 	private JButton returnBtn;
 	private JLabel title;
