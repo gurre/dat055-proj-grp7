@@ -11,9 +11,12 @@ public class Controller implements ActionListener {
 	private View view;
 	// Accessing the model for updating changes from the view
 	private Model model;
+	// keep track of which slide that will be shown
+	private int viewflowStep;
 	
 	Controller() {
 		System.out.println(">> Controller.Controller()");
+		viewflowStep=1;
 	}
 	
 
@@ -49,11 +52,25 @@ public class Controller implements ActionListener {
 		model.action();
 	}
 	
+	public void nextStep(){
+		view.changeView(viewflowStep);
+	}
+
+	
 	// Called from the view
 	public void actionPerformed(ActionEvent e){
 		System.out.println(">> Controller.actionPerformed()");
-		action();
+		//checks which button is pressed to know which slide will be shown
+		if ("forward".equals(e.getActionCommand())) {
+			viewflowStep++;
+		}else if("backwards".equals(e.getActionCommand())){
+			viewflowStep--;
+		}
+		nextStep();
+		
+		//action();
 	}
+
 	
 	
 	// Getters and setters

@@ -38,45 +38,39 @@ public class View extends JFrame implements Observer {
 		setController(c);
 		
 		// Init variables
-		sendBtn = new JButton("sendBtn");
-		title = new JLabel("Ange ditt PayPalkonto");
-		input1 = new JTextField("Epost");
+		sendBtn = new JButton();
+		returnBtn = new JButton();
+		title = new JLabel();
+		kurs = new JLabel();
+		sekVal = new JLabel();
+		information = new JLabel();
+		input1 = new JTextField();
 		passwordfield = new JPasswordField();
 		view1 = new JPanel();
 		
+		//show welcomeslide		
+		showWelcome();
 		
 		// Configure variables
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//Set commands for buttons
+		sendBtn.setActionCommand("forward");
+		returnBtn.setActionCommand("backwards");
+		
 		// Controller handles all actions
-
 		sendBtn.addActionListener(controller);
-		
-		
-		//put every object in a panel
+		returnBtn.addActionListener(controller);
 
-		
-		view1.add(title);
-		view1.add(input1);
-		view1.add(passwordfield);
-		view1.add(sendBtn);	
-		
-		
-		//set the size and layout of the panel
-		
-		view1.setPreferredSize(new Dimension(400, 100));
-		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
-		
-		
-		Container frameContainer = getContentPane();
-		frameContainer.add(view1, BorderLayout.CENTER);
+		//frame changes
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.pack();
+		this.setVisible(true);
 		
 
-		setLocationRelativeTo(null);
-		setResizable(false);
-		pack();
-		setVisible(true);
 	}
+
 	
 	public void showAmount(){
 		
@@ -103,6 +97,45 @@ public class View extends JFrame implements Observer {
 			//System.out.println("Observed change!");
 		}
 	}
+	
+	public void changeView(int slide){
+		if(slide == 1){
+			showWelcome();
+		}else if(slide == 2){
+			showTrans();
+		}else if(slide == 3){
+			showConfirmation();
+		}
+	}
+	
+	public void showWelcome(){
+		System.out.println(">> View.showWelcome()");
+		//
+		sendBtn.setText("Logga in");
+		title.setText("Logga in med ditt Amazonkonto");
+		input1.setText("Epost");
+		//put every object needed in a panel
+		view1.add(title);
+		view1.add(input1);
+		view1.add(passwordfield);
+		view1.add(sendBtn);			
+		//set the size and layout of the panel	
+		view1.setPreferredSize(new Dimension(400, 150));
+		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
+		//create a Container that holds the panel		
+		Container frameContainer = this.getContentPane();
+		frameContainer.add(view1, BorderLayout.CENTER);	
+	}
+	
+	public void showTrans(){
+		System.out.println(">> View.showTrans()");
+		
+	}
+	
+	public void showConfirmation(){
+		System.out.println(">> View.showConfirmation()");
+	}
+
 	
 	// Getters and setters
 	public void setController(Controller c){ controller=c; }
