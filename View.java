@@ -133,7 +133,22 @@ public class View extends JFrame implements Observer {
 	}
 	
 	public void showConfirmation(){
+		
 		System.out.println(">> View.showConfirmation()");
+		//
+		title.setText("Tack för att du valde oss!");
+		information.setText("Ha en bra dag!");
+		input1.setText("QX<9Wrzslokm?z£#13");
+		//put every object needed in a panel
+		view1.add(title);
+		view1.add(information);
+		view1.add(input1);	
+		//set the size and layout of the panel	
+		view1.setPreferredSize(new Dimension(400, 150));
+		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
+		//create a Container that holds the panel		
+		Container frameContainer = this.getContentPane();
+		frameContainer.add(view1, BorderLayout.CENTER);	
 	}
 
 	
