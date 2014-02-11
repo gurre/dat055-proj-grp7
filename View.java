@@ -98,10 +98,7 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-<<<<<<< HEAD
 	//Kallas nï¿½r knapptryckning registreras
-=======
->>>>>>> fbeaf870ecc6ad67bbc0ef7afbe2a83b54c6ec06
 	public void changeView(int slide){
 		if(slide == 1){
 			showWelcome();
@@ -112,11 +109,7 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-<<<<<<< HEAD
 	private void showWelcome(){
-=======
-	public void showWelcome(){
->>>>>>> fbeaf870ecc6ad67bbc0ef7afbe2a83b54c6ec06
 		System.out.println(">> View.showWelcome()");
 		//
 		sendBtn.setText("Logga in");
@@ -137,22 +130,13 @@ public class View extends JFrame implements Observer {
 		frameContainer.add(view1, BorderLayout.CENTER);	
 	}
 	
-<<<<<<< HEAD
 	private void showTrans(){
-=======
-	public void showTrans(){
->>>>>>> fbeaf870ecc6ad67bbc0ef7afbe2a83b54c6ec06
 		System.out.println(">> View.showTrans()");
 		title.setText("Ange Onskat belopp");
 		input1.setText("Belopp");
 		sekVal.setText("x 5000");
-<<<<<<< HEAD
 		sendBtn.setText("Bekrï¿½fta");
 		returnBtn.setText("Bakï¿½t");
-=======
-		sendBtn.setText("Bekräfta");
-		returnBtn.setText("Bakåt");
->>>>>>> fbeaf870ecc6ad67bbc0ef7afbe2a83b54c6ec06
 
 		view1.remove(passwordfield);
 		view1.add(title);
@@ -168,12 +152,8 @@ public class View extends JFrame implements Observer {
 		frameContainer.add(view1, BorderLayout.CENTER);	
 	}
 	
-<<<<<<< HEAD
+
 	private void showConfirmation(){
-=======
-	public void showConfirmation(){
->>>>>>> fbeaf870ecc6ad67bbc0ef7afbe2a83b54c6ec06
-		
 		System.out.println(">> View.showConfirmation()");
 		//
 		title.setText("Tack f?r att du valde oss!");
