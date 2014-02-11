@@ -24,6 +24,8 @@ public class Controller implements ActionListener {
 	public void preparePurchase(String email, String password){
 		if( !email.equals("") && !password.equals("") && Model.placeHolderAccount(email,password) ){
 			view.showAmount();
+			viewflowStep++; //Flowstep 2, gives showTrans
+			view.changeView(viewflowStep);
 		}else{
 			view.showError("Email or Password is wrong.");
 		}
@@ -32,12 +34,16 @@ public class Controller implements ActionListener {
 	public void buyBitcoins(double amount, String valuta){
 		if( valuta.equals("SEK") || valuta.equals("BTC")&& amount < 0.00){
 			view.showAmount();
+			viewflowStep++; //Flowstep 3, gives showConfirmation
+			view.changeView(viewflowStep);
 		}else{
 			view.showError("Please enter a positive number.");
 		}
 	}
 	
 	public void purchaseComplete(){
+		viewflowStep = 1;
+		view.changeView(viewflowStep);
 		// Send receipt
 		// Restart atm
 	}
