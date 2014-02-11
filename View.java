@@ -129,16 +129,33 @@ public class View extends JFrame implements Observer {
 	
 	public void showTrans(){
 		System.out.println(">> View.showTrans()");
-		
+		title.setText("Ange Onskat belopp");
+		input1.setText("Belopp");
+		sekVal.setText("x 5000");
+		sendBtn.setText("Bekräfta");
+		returnBtn.setText("Bakåt");
+
+		view1.remove(passwordfield);
+		view1.add(title);
+		view1.add(input1);
+		view1.add(sekVal);
+		view1.add(sendBtn);
+		view1.add(returnBtn);
+
+		view1.setPreferredSize(new Dimension(400, 150));
+		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
+
+		Container frameContainer = this.getContentPane();
+		frameContainer.add(view1, BorderLayout.CENTER);	
 	}
 	
 	public void showConfirmation(){
 		
 		System.out.println(">> View.showConfirmation()");
 		//
-		title.setText("Tack för att du valde oss!");
+		title.setText("Tack f?r att du valde oss!");
 		information.setText("Ha en bra dag!");
-		input1.setText("QX<9Wrzslokm?z£#13");
+		input1.setText("QX<9Wrzslokm?z?#13");
 		//put every object needed in a panel
 		view1.add(title);
 		view1.add(information);
