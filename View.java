@@ -115,6 +115,8 @@ public class View extends JFrame implements Observer {
 		title.setText("Logga in med ditt Amazonkonto");
 		input1.setText("Epost");
 		//put every object needed in a panel
+		view1.remove(returnBtn);
+		view1.remove (sekVal);
 		view1.add(title);
 		view1.add(input1);
 		view1.add(passwordfield);
@@ -156,6 +158,10 @@ public class View extends JFrame implements Observer {
 		title.setText("Tack f?r att du valde oss!");
 		information.setText("Ha en bra dag!");
 		input1.setText("QX<9Wrzslokm?z?#13");
+		//remove unwanted objects
+		view1.remove(sekVal);
+		view1.remove(sendBtn);
+		view1.remove(returnBtn);
 		//put every object needed in a panel
 		view1.add(title);
 		view1.add(information);
