@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -23,6 +25,8 @@ public class View extends JFrame implements Observer {
 
 	private JButton sendBtn;
 	private JButton returnBtn;
+	private JButton newTransBtn;
+	private JButton newAccount;
 	private JLabel title;
 	private JLabel kurs;
 	private JLabel sekVal;
@@ -31,6 +35,9 @@ public class View extends JFrame implements Observer {
 	private JPasswordField passwordfield;
 	private JPanel view1;
 	private JOptionPane popup; //Möjligt skräp, oanvänd?
+	private JComboBox currencyList;
+	
+	String[] currency = {"SEK", "BCN"}; //For the currencyList
 	
 	
 	View(Controller c) {
@@ -40,6 +47,8 @@ public class View extends JFrame implements Observer {
 		// Init variables
 		sendBtn = new JButton();
 		returnBtn = new JButton();
+		newTransBtn = new JButton();
+		newAccount = new JButton();
 		title = new JLabel();
 		kurs = new JLabel();
 		sekVal = new JLabel();
@@ -47,7 +56,8 @@ public class View extends JFrame implements Observer {
 		input1 = new JTextField();
 		passwordfield = new JPasswordField();
 		view1 = new JPanel();
-		
+		currencyList = new JComboBox(currency);
+				
 		//show welcomeslide		
 		showWelcome();
 		
@@ -57,10 +67,14 @@ public class View extends JFrame implements Observer {
 		//Set commands for buttons
 		sendBtn.setActionCommand("forward");
 		returnBtn.setActionCommand("backwards");
+		newTransBtn.setActionCommand("newTrans");
+		newAccount.setActionCommand("newAccount");
 		
 		// Controller handles all actions
 		sendBtn.addActionListener(controller);
 		returnBtn.addActionListener(controller);
+		newTransBtn.addActionListener(controller);
+		newAccount.addActionListener(controller);
 
 		//frame changes
 		this.setLocationRelativeTo(null);
@@ -98,7 +112,7 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	//Kallas n�r knapptryckning registreras
+	//Kallas när knapptryckning registreras
 	public void changeView(int slide){
 		if(slide == 1){
 			showWelcome();
@@ -115,13 +129,18 @@ public class View extends JFrame implements Observer {
 		sendBtn.setText("Logga in");
 		title.setText("Logga in med ditt Amazonkonto");
 		input1.setText("Epost");
+		newAccount.setText("Ny användare?");
 		//put every object needed in a panel
 		view1.remove(returnBtn);
 		view1.remove (sekVal);
+		view1.remove(newTransBtn);
 		view1.add(title);
 		view1.add(input1);
 		view1.add(passwordfield);
-		view1.add(sendBtn);			
+		view1.add(sendBtn);
+		view1.add(newAccount);
+		//Highlights the text in the email-field
+		input1.selectAll();
 		//set the size and layout of the panel	
 		view1.setPreferredSize(new Dimension(400, 150));
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
@@ -132,18 +151,23 @@ public class View extends JFrame implements Observer {
 	
 	private void showTrans(){
 		System.out.println(">> View.showTrans()");
-		title.setText("Ange Onskat belopp");
+		title.setText("Ange Önskat belopp");
 		input1.setText("Belopp");
 		sekVal.setText("x 5000");
-		sendBtn.setText("Bekr�fta");
-		returnBtn.setText("Bak�t");
+		sendBtn.setText("Bekräfta");
+		returnBtn.setText("Bakåt");
 
 		view1.remove(passwordfield);
+		view1.remove(newAccount);
+		
 		view1.add(title);
 		view1.add(input1);
 		view1.add(sekVal);
 		view1.add(sendBtn);
 		view1.add(returnBtn);
+		view1.add(currencyList);
+		//Highlights all the text in the amount-field
+		input1.selectAll();
 
 		view1.setPreferredSize(new Dimension(400, 150));
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
@@ -152,17 +176,20 @@ public class View extends JFrame implements Observer {
 		frameContainer.add(view1, BorderLayout.CENTER);	
 	}
 	
-
 	private void showConfirmation(){
+		
 		System.out.println(">> View.showConfirmation()");
 		//
-		title.setText("Tack f?r att du valde oss!");
+		title.setText("Tack för att du valde oss!");
 		information.setText("Ha en bra dag!");
 		input1.setText("QX<9Wrzslokm?z?#13");
-		//remove unwanted objects
+		view1.add(newTransBtn);
+		newTransBtn.setText("Ny insättning?");
+		//remove unwanted objects		
 		view1.remove(sekVal);
 		view1.remove(sendBtn);
 		view1.remove(returnBtn);
+		view1.remove(currencyList);
 		//put every object needed in a panel
 		view1.add(title);
 		view1.add(information);
