@@ -21,8 +21,8 @@ class Model extends Observable implements Runnable {
 	}
 	
 	public static boolean placeHolderAccount(String email, String password){
-		if(email == "admin"){
-		return true;
+		if(email.equals("admin")){
+			return true;
 		}
 		return false;
 	}

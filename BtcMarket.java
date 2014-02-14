@@ -4,7 +4,8 @@
 
 class BtcMarket {
 	
-	private double exchangeRate;
+	// 1 BTC = ...
+	private double exchangeRate = 3574.81526;
 	private String name;
 	private String url;
 	
@@ -21,5 +22,5 @@ class BtcMarket {
 	
 	// Getters and setters
 	//public void setExchangeRate(double r){ exchangeRate=r; }	/* Not very good to have public */
-	public double getExchangeRate(){ return exchangeRate; }
+	public double getExchangeRateForSEK(double sek){ return sek*exchangeRate; }
 }
