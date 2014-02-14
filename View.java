@@ -82,19 +82,12 @@ public class View extends JFrame implements Observer {
 		JOptionPane.showMessageDialog(view1, error);
 	}
 	
-	
-	public void updateButton(String str){
-		System.out.println(">> View.updateButton()");
-		sendBtn.setText(str);
-		
-	}
-	
 	// Called from java.util.Observer through Model when the models has changed
 	public void update(Observable obj, Object arg) {
 		System.out.println(">> View.update()");
 		if (arg instanceof String) {
-			updateButton((String)arg);
-			//System.out.println("Observed change!");
+			showError((String)arg);
+			System.out.println("Observed change!");
 		}
 	}
 	
