@@ -20,13 +20,6 @@ class Model extends Observable implements Runnable {
 		btcMarkets[0] = new BtcMarket();
 	}
 	
-	public static boolean placeHolderAccount(String email, String password){
-		if(email.equals("admin")){
-			return true;
-		}
-		return false;
-	}
-	
 	// Called from controller
 	public void action(Object arg){
 			System.out.println(">> Model.action()");
@@ -48,7 +41,7 @@ class Model extends Observable implements Runnable {
 		System.out.println("   Running from thread");
 		System.out.println("   Sleeping...");
 		try {
-			Thread.sleep(2000);
+			//ignore
 		} catch (Exception e) {
 			System.out.println(e);
 		}

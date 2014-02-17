@@ -32,15 +32,14 @@ public class Controller implements ActionListener, KeyListener {
 		viewflowStep=1;
 	}
 		
+	
+	//.......Kod som h�mtar och �ndrar i view.....
 	public void preparePurchase(){
 		String password = view.getPassword();
-		String email = view.getUsername();
-				
+		String email = view.getUsername();		
 		if( email.equals("Admin") && password.equals(hashPassword("password")) ){
-			view.showAmount();
 			viewflowStep++;
 			view.changeView(viewflowStep);
-
 		}else{
 			view.showError("Email or Password is wrong.");
 		}
@@ -49,10 +48,8 @@ public class Controller implements ActionListener, KeyListener {
 	
 	public void buyBitcoins(double amount, String valuta){
 		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
-			view.showAmount();
 			viewflowStep++; //Flowstep 3, gives showConfirmation
 			view.changeView(viewflowStep);
-
 		}else{
 			view.showError("Please enter a positive number.");
 		}
@@ -64,6 +61,7 @@ public class Controller implements ActionListener, KeyListener {
 		// Send receipt
 		// Restart atm
 	}
+	
 	
 	public void action(Object arg){	//en if-sats som undersöker om epost och lösenord är godkänt
 
@@ -144,7 +142,6 @@ public class Controller implements ActionListener, KeyListener {
 		//Calculate amount of sek/btc
 		action(view.getAmount());
 	}
-
 	@Override
 	public void keyTyped(KeyEvent e) {}
 

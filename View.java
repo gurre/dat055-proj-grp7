@@ -83,27 +83,12 @@ public class View extends JFrame implements Observer {
 		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
-		
-
 	}
 
-	
-	public void showAmount(){
-		
-		// From page 1 to page 2. The user must enter the amount BTC/SEK
-		
-	}
-	
 	public void showError(String error){
 		JOptionPane.showMessageDialog(view1, error);
 	}
 	
-	
-	public void updateButton(String str){
-		System.out.println(">> View.updateButton()");
-		sendBtn.setText(str);
-		//Ta bort?
-	}
 	// Called from java.util.Observer through Model when the models has changed
 	public void update(Observable obj, Object arg) {
 		System.out.println(">> View.update()");
@@ -116,7 +101,8 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	//Kallas när knapptryckning registreras
+	//Called from Controller when button is pressed
+	//Controls slides
 	public void changeView(int slide){
 		if(slide == 1){
 			showWelcome();
@@ -126,6 +112,8 @@ public class View extends JFrame implements Observer {
 			showConfirmation();
 		}
 	}
+	
+	//To be modified for CardView(?) or other 
 	
 	private void showWelcome(){
 		System.out.println(">> View.showWelcome()");
@@ -183,11 +171,11 @@ public class View extends JFrame implements Observer {
 		
 		System.out.println(">> View.showConfirmation()");
 		//
-		title.setText("Tack för att du valde oss!");
-		information.setText("Ha en bra dag!");
+		title.setText("Thank you for choosing us!");
+		information.setText("Have a great day!");
 		input1.setText("QX<9Wrzslokm?z?#13");
 		view1.add(newTransBtn);
-		newTransBtn.setText("Ny insättning?");
+		newTransBtn.setText("New Transaction?");
 		//remove unwanted objects		
 		view1.remove(sekVal);
 		view1.remove(sendBtn);
@@ -210,15 +198,7 @@ public class View extends JFrame implements Observer {
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
 	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
-	
-	public String getPassword(){
-		 
-		return controller.hashPassword(new String(passwordfield.getPassword()));
-	}
-	
-	public String getUsername(){
-		System.out.println(input1.getText());
-		return input1.getText();	
-	}
+	public String getPassword(){return controller.hashPassword(new String(passwordfield.getPassword()));}
+	public String getUsername(){System.out.println(input1.getText());return input1.getText();	}
 
 }
