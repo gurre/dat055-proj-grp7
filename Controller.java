@@ -11,6 +11,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.math.BigInteger;
+import java.security.*;
+
 
 public class Controller implements ActionListener {
 	
@@ -21,22 +24,26 @@ public class Controller implements ActionListener {
 	// keep track of which slide that will be shown
 	private int viewflowStep;
 	
+	
 	Controller() {
 		System.out.println(">> Controller.Controller()");
 		viewflowStep=1;
 	}
 		
-	public void preparePurchase(String email, String password){
-		if( !email.equals("") && !password.equals("") && 
-				Model.placeHolderAccount(email,password) ){
+	public void preparePurchase(){
+		String password = view.getPassword();
+		String email = view.getUsername();
+				
+		if( email.equals("Admin") && password.equals(hashPassword("password")) ){
 			view.showAmount();
-			viewflowStep++; //Flowstep 2, gives showTrans
+			viewflowStep++;
 			view.changeView(viewflowStep);
 
 		}else{
 			view.showError("Email or Password is wrong.");
 		}
 	}
+	
 	
 	public void buyBitcoins(double amount, String valuta){
 		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
@@ -67,6 +74,31 @@ public class Controller implements ActionListener {
 	public void nextStep(){
 		view.changeView(viewflowStep);
 	}
+	
+	public String hashPassword(String password)
+    {
+		
+        BigInteger hash = null;
+        for(int i=0; i<145734; i++){
+            try {
+
+                MessageDigest md5 = MessageDigest.getInstance("MD5");
+                md5.update(password.getBytes());
+                
+                hash = new BigInteger(1, md5.digest());
+            
+                password = hash.toString(16);
+
+            } catch (NoSuchAlgorithmException nsae) {
+                // ignore
+            }
+            while(password.length() < 32 ){
+                password = "0"+password;
+            }
+        }
+        return password;
+    }
+
 
 	
 	// Called from the view
@@ -76,12 +108,10 @@ public class Controller implements ActionListener {
 		if ("forward".equals(e.getActionCommand())) {  //Checks witch slide the forward button is pressed
 			switch(viewflowStep){
 				case 1: System.out.println(">> PreparePurchase");
-						//preparePurchase();
-						viewflowStep++;
+						preparePurchase();
 						break;
 				case 2: System.out.println(">> BuyBitcoins");
 						//buyBitcoins();
-						viewflowStep++;
 						break;
 			}
 		}else if("backwards".equals(e.getActionCommand())){

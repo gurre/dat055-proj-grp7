@@ -205,4 +205,15 @@ public class View extends JFrame implements Observer {
 	// Getters and setters
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
+	
+	public String getPassword(){
+		 
+		return controller.hashPassword(new String(passwordfield.getPassword()));
+	}
+	
+	public String getUsername(){
+		System.out.println(input1.getText());
+		return input1.getText();	
+	}
+
 }
