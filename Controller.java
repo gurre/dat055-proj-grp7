@@ -5,6 +5,8 @@
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -15,7 +17,7 @@ import java.math.BigInteger;
 import java.security.*;
 
 
-public class Controller implements ActionListener {
+public class Controller implements ActionListener, KeyListener {
 	
 	// Accessing our view for updating changes from the view itself and model
 	private View view;
@@ -63,12 +65,10 @@ public class Controller implements ActionListener {
 		// Restart atm
 	}
 	
-	public void action(){	//en if-sats som undersöker om epost och lösenord är godkänt
+	public void action(Object arg){	//en if-sats som undersöker om epost och lösenord är godkänt
 
 		System.out.println(">> Controller.action()");
-		view.updateButton(">> Changed from controller! <<");
-		
-		model.action();
+		model.action(arg);
 	}
 	
 	public void nextStep(){
@@ -136,6 +136,17 @@ public class Controller implements ActionListener {
 		
 		//action();
 	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		//Calculate amount of sek/btc
+		action(view.getAmount());
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
 
 	
 	

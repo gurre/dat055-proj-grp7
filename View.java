@@ -32,9 +32,9 @@ public class View extends JFrame implements Observer {
 	private JLabel sekVal;
 	private JLabel information;
 	private JTextField input1;
+	private JTextField numeric1;
 	private JPasswordField passwordfield;
 	private JPanel view1;
-	private JOptionPane popup; //Möjligt skräp, oanvänd?
 	private JComboBox currencyList;
 	
 	String[] currency = {"SEK", "BCN"}; //For the currencyList
@@ -57,6 +57,7 @@ public class View extends JFrame implements Observer {
 		passwordfield = new JPasswordField();
 		view1 = new JPanel();
 		currencyList = new JComboBox(currency);
+		numeric1 = new JTextField("0.00");
 				
 		//show welcomeslide		
 		showWelcome();
@@ -75,6 +76,7 @@ public class View extends JFrame implements Observer {
 		returnBtn.addActionListener(controller);
 		newTransBtn.addActionListener(controller);
 		newAccount.addActionListener(controller);
+		numeric1.addKeyListener(controller);
 
 		//frame changes
 		this.setLocationRelativeTo(null);
@@ -105,6 +107,9 @@ public class View extends JFrame implements Observer {
 	// Called from java.util.Observer through Model when the models has changed
 	public void update(Observable obj, Object arg) {
 		System.out.println(">> View.update()");
+		if(arg instanceof Double){
+			sekVal.setText(Double.toString((Double)arg));
+		}
 		if (arg instanceof String) {
 			showError((String)arg);
 			System.out.println("Observed change!");
@@ -151,7 +156,6 @@ public class View extends JFrame implements Observer {
 	private void showTrans(){
 		System.out.println(">> View.showTrans()");
 		title.setText("Ange Önskat belopp");
-		input1.setText("Belopp");
 		sekVal.setText("x 5000");
 		sendBtn.setText("Bekräfta");
 		returnBtn.setText("Bakåt");
@@ -160,7 +164,7 @@ public class View extends JFrame implements Observer {
 		view1.remove(newAccount);
 		
 		view1.add(title);
-		view1.add(input1);
+		view1.add(numeric1);
 		view1.add(sekVal);
 		view1.add(sendBtn);
 		view1.add(returnBtn);
@@ -205,6 +209,7 @@ public class View extends JFrame implements Observer {
 	// Getters and setters
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
+	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
 	
 	public String getPassword(){
 		 

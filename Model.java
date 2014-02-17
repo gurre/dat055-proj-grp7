@@ -28,10 +28,19 @@ class Model extends Observable implements Runnable {
 	}
 	
 	// Called from controller
-	public void action(){
-		System.out.println(">> Model.action()");
-		
-		(new Thread(this)).start();
+	public void action(Object arg){
+			System.out.println(">> Model.action()");
+			
+			
+			//........Updates view...........
+			
+			//Updates View in transactionwindow for exchangerates
+
+			if(arg instanceof Double){
+			notifyObservers(btcMarkets[0].getExchangeRateForSEK((Double)arg));
+			}
+			
+			(new Thread(this)).start();
 	}
 	
 	// Called from java.lang.Thread, before that Model.action()
@@ -46,7 +55,7 @@ class Model extends Observable implements Runnable {
 		// Tell the observer we have changed our state
 		setChanged();
 		// Update the view through Observer
-		notifyObservers(">> Changed from model! <<");
+		//notifyObservers(">> Changed from model! <<");
 		Thread.currentThread().interrupt();
 		System.out.println("   Thread interrupted");
 		return;
