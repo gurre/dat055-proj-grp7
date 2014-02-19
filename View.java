@@ -28,13 +28,21 @@ public class View extends JFrame implements Observer {
 	private JButton newTransBtn;
 	private JButton newAccount;
 	private JLabel title;
+	private JLabel usernamelbl;
+	private JLabel passwordlbl;
+	private JLabel confpasswordlbl;
 	private JLabel kurs;
 	private JLabel sekVal;
 	private JLabel information;
 	private JTextField input1;
 	private JTextField numeric1;
 	private JPasswordField passwordfield;
+	private JPasswordField passwordfield2;
+	private JPanel views;
 	private JPanel view1;
+	private JPanel view2;
+	private JPanel view3;
+	private JPanel view4;
 	private JComboBox currencyList;
 	
 	String[] currency = {"SEK", "BCN"}; //For the currencyList
@@ -49,18 +57,27 @@ public class View extends JFrame implements Observer {
 		returnBtn = new JButton();
 		newTransBtn = new JButton();
 		newAccount = new JButton();
+		
 		title = new JLabel();
 		kurs = new JLabel();
 		sekVal = new JLabel();
+		usernamelbl = new JLabel();
+		passwordlbl = new JLabel();
+		confpasswordlbl = new JLabel();
 		information = new JLabel();
 		input1 = new JTextField();
 		passwordfield = new JPasswordField();
+		passwordfield2 = new JPasswordField();
+		views = new JPanel(new CardLayout());
 		view1 = new JPanel();
+		view2 = new JPanel();
+		view3 = new JPanel();
+		view4 = new JPanel();
 		currencyList = new JComboBox(currency);
 		numeric1 = new JTextField("0.00");
 				
 		//show welcomeslide		
-		showWelcome();
+		makeViews();
 		
 		// Configure variables
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,18 +131,39 @@ public class View extends JFrame implements Observer {
 	}
 	
 	//To be modified for CardView(?) or other 
-	
+	public  void makeViews(){
+		
+		showWelcome();
+		showTrans();
+		showConfirmation();
+		showNewUser();
+		
+		views.add(view1, "Welcome");
+		views.add(view2, "Trans");
+		views.add(view3, "Confirmation");
+		views.add(view4, "NewUser");
+		
+		
+		CardLayout cl = (CardLayout)(views.getLayout());
+	    cl.show(views, "welcome");
+	    
+	    
+	    
+		
+		
+		
+	}
 	private void showWelcome(){
+		
+		
 		System.out.println(">> View.showWelcome()");
 		//
-		sendBtn.setText("Logga in");
-		title.setText("Logga in med ditt Amazonkonto");
-		input1.setText("Epost");
-		newAccount.setText("Ny användare?");
+		sendBtn.setText("Log in");
+		title.setText("Log in with your Account ");
+		input1.setText("Email");
+		newAccount.setText("New User?");
 		//put every object needed in a panel
-		view1.remove(returnBtn);
-		view1.remove (sekVal);
-		view1.remove(newTransBtn);
+		
 		view1.add(title);
 		view1.add(input1);
 		view1.add(passwordfield);
@@ -134,37 +172,41 @@ public class View extends JFrame implements Observer {
 		//Highlights the text in the email-field
 		input1.selectAll();
 		//set the size and layout of the panel	
-		view1.setPreferredSize(new Dimension(400, 150));
+		view1.setPreferredSize(new Dimension(400, 150));		
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
+		
+		/*
 		//create a Container that holds the panel		
 		Container frameContainer = this.getContentPane();
 		frameContainer.add(view1, BorderLayout.CENTER);	
+		*/
+		
 	}
 	
 	private void showTrans(){
 		System.out.println(">> View.showTrans()");
-		title.setText("Ange Önskat belopp");
+		title.setText("Enter the desired amount");
 		sekVal.setText("x 5000");
-		sendBtn.setText("Bekräfta");
-		returnBtn.setText("Bakåt");
+		sendBtn.setText("Confirm");
+		returnBtn.setText("Back");
 
-		view1.remove(passwordfield);
-		view1.remove(newAccount);
+	
 		
-		view1.add(title);
-		view1.add(numeric1);
-		view1.add(sekVal);
-		view1.add(sendBtn);
-		view1.add(returnBtn);
-		view1.add(currencyList);
+		view2.add(title);
+		view2.add(numeric1);
+		view2.add(sekVal);
+		view2.add(sendBtn);
+		view2.add(returnBtn);
+		view2.add(currencyList);
 		//Highlights all the text in the amount-field
 		input1.selectAll();
 
-		view1.setPreferredSize(new Dimension(400, 150));
-		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
-
+		view2.setPreferredSize(new Dimension(400, 150));
+		view2.setLayout(new BoxLayout(view2, BoxLayout.PAGE_AXIS));
+		/*
 		Container frameContainer = this.getContentPane();
-		frameContainer.add(view1, BorderLayout.CENTER);	
+		frameContainer.add(view2, BorderLayout.CENTER);	
+		*/
 	}
 	
 	private void showConfirmation(){
@@ -173,24 +215,46 @@ public class View extends JFrame implements Observer {
 		//
 		title.setText("Thank you for choosing us!");
 		information.setText("Have a great day!");
-		input1.setText("QX<9Wrzslokm?z?#13");
-		view1.add(newTransBtn);
+		input1.setText("Q99886585");
+		view3.add(newTransBtn);
 		newTransBtn.setText("New Transaction?");
-		//remove unwanted objects		
-		view1.remove(sekVal);
-		view1.remove(sendBtn);
-		view1.remove(returnBtn);
-		view1.remove(currencyList);
+		
 		//put every object needed in a panel
-		view1.add(title);
-		view1.add(information);
-		view1.add(input1);	
+		view3.add(title);
+		view3.add(information);
+		view3.add(input1);	
 		//set the size and layout of the panel	
-		view1.setPreferredSize(new Dimension(400, 150));
-		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
+		view3.setPreferredSize(new Dimension(400, 150));
+		view3.setLayout(new BoxLayout(view3, BoxLayout.PAGE_AXIS));
+		
+		/*
 		//create a Container that holds the panel		
 		Container frameContainer = this.getContentPane();
-		frameContainer.add(view1, BorderLayout.CENTER);	
+		frameContainer.add(view3, BorderLayout.CENTER);	
+		*/
+	}
+	
+	private void showNewUser(){
+		
+		System.out.println(">> View.showNewUser()");
+		//
+		title.setText("Type in new username");
+		input1.setText("Username");
+		passwordfield.setText("");
+		view4.add(title);
+		view4.add(input1);
+		view4.add(passwordfield);
+		view4.add(passwordfield2);
+		view4.add(sendBtn);
+		
+		view4.setPreferredSize(new Dimension(400, 150));
+		view4.setLayout(new BoxLayout(view4, BoxLayout.PAGE_AXIS));
+		
+		/*
+		//create a Container that holds the panel		
+		Container frameContainer = this.getContentPane();
+		frameContainer.add(view4, BorderLayout.CENTER);	
+        */	
 	}
 
 	
