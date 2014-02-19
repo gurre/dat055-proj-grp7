@@ -6,7 +6,9 @@ class BtcMarket {
 	
 	// 1 BTC = ...
 	private double exchangeRate = 3574.81526;
+	// BTC-e 
 	private String name;
+	
 	private String url;
 	
 	BtcMarket(){

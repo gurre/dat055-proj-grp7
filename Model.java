@@ -12,7 +12,6 @@ class Model extends Observable implements Runnable {
 	private PaymentProvider paymentProvider;
 	private BtcMarket[] btcMarkets;
 	
-	
 	Model(){
 		System.out.println(">> Model.Model()");
 		paymentProvider = new PaymentProvider();
