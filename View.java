@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,28 +23,38 @@ import java.util.Observable;
 
 public class View extends JFrame implements Observer {
 	private	Controller controller;
-
-	private JButton sendBtn;
-	private JButton returnBtn;
 	private JButton newTransBtn;
 	private JButton newAccount;
-	private JLabel title;
-	private JLabel usernamelbl;
-	private JLabel passwordlbl;
-	private JLabel confpasswordlbl;
+	private JButton loginBtn;
+	private JButton transSendBtn;
+	private JButton transReturnBtn;
+	private JButton newuserSendBtn;
+	private JButton newuserReturnBtn;
 	private JLabel kurs;
 	private JLabel sekVal;
 	private JLabel information;
+	private JLabel welcomeTitle;
+	private JLabel confTitle;
+	private JLabel transTitle;
+	private JLabel newuserTypeUser;
+	private JLabel newuserTypePassword;
+	private JLabel newuserConfPassword;
 	private JTextField input1;
 	private JTextField numeric1;
-	private JPasswordField passwordfield;
-	private JPasswordField passwordfield2;
+	private JTextField welcomeInput;
+	private JTextField transInput;
+	private JTextField confInput;
+	private JTextField newuserInput;
+	private JPasswordField welcomePasswordfield;
+	private JPasswordField newuserPasswordfield;
+	private JPasswordField newuserPasswordfield2;
 	private JPanel views;
 	private JPanel view1;
 	private JPanel view2;
 	private JPanel view3;
 	private JPanel view4;
 	private JComboBox currencyList;
+	private CardLayout layout;
 	
 	String[] currency = {"SEK", "BCN"}; //For the currencyList
 	
@@ -53,44 +64,60 @@ public class View extends JFrame implements Observer {
 		setController(c);
 		
 		// Init variables
-		sendBtn = new JButton();
-		returnBtn = new JButton();
 		newTransBtn = new JButton();
 		newAccount = new JButton();
-		
-		title = new JLabel();
+		loginBtn = new JButton();
+		transSendBtn = new JButton();
+		transReturnBtn = new JButton();
+		newuserSendBtn = new JButton();
+		newuserReturnBtn = new JButton();
 		kurs = new JLabel();
 		sekVal = new JLabel();
-		usernamelbl = new JLabel();
-		passwordlbl = new JLabel();
-		confpasswordlbl = new JLabel();
 		information = new JLabel();
+		welcomeTitle = new JLabel();
+		transTitle = new JLabel();
+		confTitle = new JLabel();
+		newuserTypeUser = new JLabel();
+		newuserTypePassword = new JLabel();
+		newuserConfPassword = new JLabel();
 		input1 = new JTextField();
-		passwordfield = new JPasswordField();
-		passwordfield2 = new JPasswordField();
-		views = new JPanel(new CardLayout());
+		welcomeInput = new JTextField();
+		transInput = new JTextField();
+		confInput = new JTextField();
+		newuserInput = new JTextField();
+		welcomePasswordfield = new JPasswordField();
+		newuserPasswordfield = new JPasswordField();
+		newuserPasswordfield2 = new JPasswordField();
+		views = new JPanel();
 		view1 = new JPanel();
 		view2 = new JPanel();
 		view3 = new JPanel();
 		view4 = new JPanel();
+		layout = new CardLayout();
 		currencyList = new JComboBox(currency);
 		numeric1 = new JTextField("0.00");
 				
-		//show welcomeslide		
+		//Create cards	
 		makeViews();
 		
 		// Configure variables
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Set commands for buttons
-		sendBtn.setActionCommand("forward");
-		returnBtn.setActionCommand("backwards");
+		loginBtn.setActionCommand("forward");
+		transSendBtn.setActionCommand("forward");
+		newuserSendBtn.setActionCommand("showWelcome");
+		transReturnBtn.setActionCommand("backwards");
+		newuserReturnBtn.setActionCommand("showWelcome");
 		newTransBtn.setActionCommand("newTrans");
 		newAccount.setActionCommand("newAccount");
 		
 		// Controller handles all actions
-		sendBtn.addActionListener(controller);
-		returnBtn.addActionListener(controller);
+		loginBtn.addActionListener(controller);
+		transSendBtn.addActionListener(controller);
+		newuserSendBtn.addActionListener(controller);
+		transReturnBtn.addActionListener(controller);
+		newuserReturnBtn.addActionListener(controller);
 		newTransBtn.addActionListener(controller);
 		newAccount.addActionListener(controller);
 		numeric1.addKeyListener(controller);
@@ -122,139 +149,117 @@ public class View extends JFrame implements Observer {
 	//Controls slides
 	public void changeView(int slide){
 		if(slide == 1){
-			showWelcome();
+			layout.show(views, "1");
 		}else if(slide == 2){
-			showTrans();
+			layout.show(views, "2");
 		}else if(slide == 3){
-			showConfirmation();
+			layout.show(views, "3");
+		}else if(slide == 4){
+			layout.show(views, "4");
 		}
 	}
 	
 	//To be modified for CardView(?) or other 
 	public  void makeViews(){
+		views.setLayout(layout);
 		
 		showWelcome();
 		showTrans();
 		showConfirmation();
 		showNewUser();
 		
-		views.add(view1, "Welcome");
-		views.add(view2, "Trans");
-		views.add(view3, "Confirmation");
-		views.add(view4, "NewUser");
+		views.add(view1, "1");
+		views.add(view2, "2");
+		views.add(view3, "3");
+		views.add(view4, "4");
 		
-		
-		CardLayout cl = (CardLayout)(views.getLayout());
-	    cl.show(views, "welcome");
-	    
-	    
-	    
-		
-		
-		
+		layout.show(views, "1");
+	    Container frameContainer = this.getContentPane();
+		frameContainer.add(views, BorderLayout.CENTER);	
 	}
 	private void showWelcome(){
 		
 		
 		System.out.println(">> View.showWelcome()");
 		//
-		sendBtn.setText("Log in");
-		title.setText("Log in with your Account ");
-		input1.setText("Email");
+		loginBtn.setText("Log in");
+		
+		welcomeTitle.setText("Log in with your Account ");
+		welcomeInput.setText("Email");
 		newAccount.setText("New User?");
 		//put every object needed in a panel
 		
-		view1.add(title);
-		view1.add(input1);
-		view1.add(passwordfield);
-		view1.add(sendBtn);
+		view1.add(welcomeTitle);
+		view1.add(welcomeInput);
+		view1.add(welcomePasswordfield);
+		view1.add(loginBtn);
 		view1.add(newAccount);
 		//Highlights the text in the email-field
 		input1.selectAll();
 		//set the size and layout of the panel	
 		view1.setPreferredSize(new Dimension(400, 150));		
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
-		
-		/*
-		//create a Container that holds the panel		
-		Container frameContainer = this.getContentPane();
-		frameContainer.add(view1, BorderLayout.CENTER);	
-		*/
-		
 	}
 	
 	private void showTrans(){
 		System.out.println(">> View.showTrans()");
-		title.setText("Enter the desired amount");
+		transTitle.setText("Enter the desired amount");
 		sekVal.setText("x 5000");
-		sendBtn.setText("Confirm");
-		returnBtn.setText("Back");
-
-	
+		transSendBtn.setText("Confirm");
+		transReturnBtn.setText("Back");
 		
-		view2.add(title);
+		view2.add(transTitle);
 		view2.add(numeric1);
 		view2.add(sekVal);
-		view2.add(sendBtn);
-		view2.add(returnBtn);
+		view2.add(transSendBtn);
+		view2.add(transReturnBtn);
 		view2.add(currencyList);
 		//Highlights all the text in the amount-field
-		input1.selectAll();
-
+		transInput.selectAll();
 		view2.setPreferredSize(new Dimension(400, 150));
 		view2.setLayout(new BoxLayout(view2, BoxLayout.PAGE_AXIS));
-		/*
-		Container frameContainer = this.getContentPane();
-		frameContainer.add(view2, BorderLayout.CENTER);	
-		*/
+	
 	}
 	
 	private void showConfirmation(){
 		
-		System.out.println(">> View.showConfirmation()");
-		//
-		title.setText("Thank you for choosing us!");
+		
+		confTitle.setText("Thank you for choosing us!");
 		information.setText("Have a great day!");
-		input1.setText("Q99886585");
+		confInput.setText("Q99886585");
 		view3.add(newTransBtn);
 		newTransBtn.setText("New Transaction?");
 		
 		//put every object needed in a panel
-		view3.add(title);
+		view3.add(confTitle);
 		view3.add(information);
-		view3.add(input1);	
+		view3.add(confInput);	
 		//set the size and layout of the panel	
 		view3.setPreferredSize(new Dimension(400, 150));
 		view3.setLayout(new BoxLayout(view3, BoxLayout.PAGE_AXIS));
-		
-		/*
-		//create a Container that holds the panel		
-		Container frameContainer = this.getContentPane();
-		frameContainer.add(view3, BorderLayout.CENTER);	
-		*/
 	}
 	
 	private void showNewUser(){
 		
 		System.out.println(">> View.showNewUser()");
 		//
-		title.setText("Type in new username");
-		input1.setText("Username");
-		passwordfield.setText("");
-		view4.add(title);
-		view4.add(input1);
-		view4.add(passwordfield);
-		view4.add(passwordfield2);
-		view4.add(sendBtn);
+		newuserTypeUser.setText("Type in new username");
+		newuserTypePassword.setText("Type in new password");
+		newuserConfPassword.setText("Confirm new Password");
+		newuserInput.setText("Username");
+		newuserSendBtn.setText("Confirm");
+		
+		
+		view4.add(newuserTypeUser);
+		view4.add(newuserInput);
+		view4.add(newuserTypePassword);
+		view4.add(newuserPasswordfield);
+		view4.add(newuserConfPassword);
+		view4.add(newuserPasswordfield2);
+		view4.add(newuserSendBtn);
 		
 		view4.setPreferredSize(new Dimension(400, 150));
 		view4.setLayout(new BoxLayout(view4, BoxLayout.PAGE_AXIS));
-		
-		/*
-		//create a Container that holds the panel		
-		Container frameContainer = this.getContentPane();
-		frameContainer.add(view4, BorderLayout.CENTER);	
-        */	
 	}
 
 	
@@ -262,7 +267,7 @@ public class View extends JFrame implements Observer {
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
 	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
-	public String getPassword(){return controller.hashPassword(new String(passwordfield.getPassword()));}
-	public String getUsername(){System.out.println(input1.getText());return input1.getText();	}
+	public String getPassword(){return controller.hashPassword(new String(welcomePasswordfield.getPassword()));}
+	public String getUsername(){System.out.println(welcomeInput.getText());return welcomeInput.getText();	}
 
 }
