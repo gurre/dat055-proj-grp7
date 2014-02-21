@@ -37,13 +37,17 @@ public class Controller implements ActionListener, KeyListener {
 	public void preparePurchase(){
 		String password = view.getPassword();
 		String email = view.getUsername();		
-		if( email.equals("Admin") && password.equals(hashPassword("password")) ){
-			viewflowStep++;
-			view.changeView(viewflowStep);
+		if( !email.equals("") && !password.equals("") && 
+				model.placeHolderAccount(email,password) ){
+			//view.showAmount(); 
+			
+			view.changeView(viewflowStep++); //Flowstep 2, gives showTrans
 		}else{
 			view.showError("Email or Password is wrong.");
+			
 		}
-	}
+		}
+
 	
 	
 	public void buyBitcoins(double amount, String valuta){
@@ -63,9 +67,10 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	
-	public void action(Object arg){	//en if-sats som undersöker om epost och lösenord är godkänt
+	public void action(Object arg){	
 
 		System.out.println(">> Controller.action()");
+		
 		model.action(arg);
 	}
 	
@@ -73,29 +78,7 @@ public class Controller implements ActionListener, KeyListener {
 		view.changeView(viewflowStep);
 	}
 	
-	public String hashPassword(String password)
-    {
-		
-        BigInteger hash = null;
-        for(int i=0; i<145734; i++){
-            try {
-
-                MessageDigest md5 = MessageDigest.getInstance("MD5");
-                md5.update(password.getBytes());
-                
-                hash = new BigInteger(1, md5.digest());
-            
-                password = hash.toString(16);
-
-            } catch (NoSuchAlgorithmException nsae) {
-                // ignore
-            }
-            while(password.length() < 32 ){
-                password = "0"+password;
-            }
-        }
-        return password;
-    }
+	
 
 
 	
@@ -103,6 +86,10 @@ public class Controller implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e){
 		System.out.println(">> Controller.actionPerformed()");
 		//checks which button is pressed to know which slide will be shown
+		
+		
+		
+		
 		if ("forward".equals(e.getActionCommand())) {  //Checks witch slide the forward button is pressed
 			viewflowStep++;
 		}else if("backwards".equals(e.getActionCommand())){
@@ -112,7 +99,18 @@ public class Controller implements ActionListener, KeyListener {
 		}else if("newAccount".equals(e.getActionCommand())){ //Get the user to the Amazon signup page
 			viewflowStep = 4;
 			}
-		nextStep();
+		
+		switch(viewflowStep){
+		case 1: System.out.println(">> PreparePurchase");
+				preparePurchase();
+				break;
+		case 2: System.out.println(">> BuyBitcoins");
+				buyBitcoins(1,"SEK");
+				break;
+	}
+	
+		
+	nextStep();
 		
 		//action();
 	}
@@ -134,4 +132,6 @@ public class Controller implements ActionListener, KeyListener {
 	public View getView(){ return view; }
 	public void setModel(Model m){ model=m; }
 	public Model getModel(){ return model; }
+	public String getPassword(){return view.getPassword();}
+	public String gethashPassword(String password){return model.hashPassword(password);}
 }

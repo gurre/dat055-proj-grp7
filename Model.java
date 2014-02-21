@@ -2,9 +2,12 @@
  * 
  */
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Observable;          //Observable is here
 import java.lang.Runnable;
 import java.lang.Thread;
+import java.math.BigInteger;
 
 // We observe this object from the view
 class Model extends Observable implements Runnable {
@@ -18,6 +21,40 @@ class Model extends Observable implements Runnable {
 		btcMarkets = new BtcMarket[2];
 		btcMarkets[0] = new BtcMarket();
 	}
+	
+	//Checks if the email & password is correct
+	public boolean placeHolderAccount(String email, String password){
+		
+		if(email.equals("admin") && password.equals(hashPassword("test"))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public String hashPassword(String password)
+    {
+		
+        BigInteger hash = null;
+        for(int i=0; i<145734; i++){
+            try {
+
+                MessageDigest md5 = MessageDigest.getInstance("MD5");
+                md5.update(password.getBytes());
+                
+                hash = new BigInteger(1, md5.digest());
+            
+                password = hash.toString(16);
+
+            } catch (NoSuchAlgorithmException nsae) {
+                // ignore
+            }
+            while(password.length() < 32 ){
+                password = "0"+password;
+            }
+        }
+        return password;
+    }
 	
 	// Called from controller
 	public void action(Object arg){

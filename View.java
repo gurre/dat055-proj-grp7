@@ -104,7 +104,7 @@ public class View extends JFrame implements Observer {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Set commands for buttons
-		loginBtn.setActionCommand("forward");
+		loginBtn.setActionCommand("login");
 		transSendBtn.setActionCommand("forward");
 		newuserSendBtn.setActionCommand("showWelcome");
 		transReturnBtn.setActionCommand("backwards");
@@ -267,7 +267,7 @@ public class View extends JFrame implements Observer {
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
 	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
-	public String getPassword(){return controller.hashPassword(new String(welcomePasswordfield.getPassword()));}
+	public String getPassword(){return controller.gethashPassword(new String(welcomePasswordfield.getPassword()));}
 	public String getUsername(){System.out.println(welcomeInput.getText());return welcomeInput.getText();	}
 
 }
