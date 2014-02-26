@@ -13,14 +13,13 @@ import java.math.BigInteger;
 class Model extends Observable {
 	
 	private PaymentProvider paymentProvider;
-	private BtcMarket[] btcMarkets;
+	private BtcMarket btcMarket;
 	private double currentExchangeRate = -1.0;
 	
 	Model(){
 		System.out.println(">> Model.Model()");
 		paymentProvider = new PaymentProvider();
-		btcMarkets = new BtcMarket[2];
-		btcMarkets[0] = new BtcMarket();
+		btcMarket = new BtcMarket();
 	}
 	
 	//Checks if the email & password is correct
@@ -67,7 +66,7 @@ class Model extends Observable {
 			//Updates View in transactionwindow for exchangerates
 
 			if(arg instanceof Double){
-			notifyObservers(btcMarkets[0].getExchangeRateForSEK((Double)arg));
+				//notifyObservers(btcMarkets[0].getExchangeRateForSEK((Double)arg));
 			}
 			
 			
@@ -75,18 +74,11 @@ class Model extends Observable {
 	
 	public void updateExchangeRate(){
 		
-		for (BtcMarket market : btcMarkets){
-			market.updateRate();
-		}
+		btcMarket.updateRate();
 		
-		double int bestPrice;
-		for (BtcMarket market : btcMarkets){
-			if( bestPrice > market.getExchangeRate() ){
-				bestPrice = market.getExchangeRate();
-			}
-		}
 		
-		currentExchangeRate = newRate;
+		
+		//currentExchangeRate = newRate;
 		// Tell the observer we have changed our state
 		setChanged();
 		// Update the view through Observer
