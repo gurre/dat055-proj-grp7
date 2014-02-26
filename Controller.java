@@ -129,7 +129,7 @@ public class Controller implements ActionListener, KeyListener {
 					e1.printStackTrace();
 				}
 	        }
-			}
+		}
 		nextStep();
 		
 		//action();

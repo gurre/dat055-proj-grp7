@@ -7,10 +7,11 @@ import java.lang.Runnable;
 import java.lang.Thread;
 
 // We observe this object from the view
-class Model extends Observable implements Runnable {
+class Model extends Observable {
 	
 	private PaymentProvider paymentProvider;
 	private BtcMarket[] btcMarkets;
+	private double currentExchangeRate = -1.0;
 	
 	Model(){
 		System.out.println(">> Model.Model()");
@@ -32,24 +33,29 @@ class Model extends Observable implements Runnable {
 			notifyObservers(btcMarkets[0].getExchangeRateForSEK((Double)arg));
 			}
 			
-			(new Thread(this)).start();
+			
 	}
 	
-	// Called from java.lang.Thread, before that Model.action()
-	public void run() {
-		System.out.println("   Running from thread");
-		System.out.println("   Sleeping...");
-		try {
-			//ignore
-		} catch (Exception e) {
-			System.out.println(e);
+	public void updateExchangeRate(){
+		
+		for (BtcMarket market : btcMarkets){
+			market.updateRate();
 		}
+		
+		double int bestPrice;
+		for (BtcMarket market : btcMarkets){
+			if( bestPrice > market.getExchangeRate() ){
+				bestPrice = market.getExchangeRate();
+			}
+		}
+		
+		currentExchangeRate = newRate;
 		// Tell the observer we have changed our state
 		setChanged();
 		// Update the view through Observer
-		//notifyObservers(">> Changed from model! <<");
-		Thread.currentThread().interrupt();
-		System.out.println("   Thread interrupted");
-		return;
+		notifyObservers("exchangeRate");
+		
 	}
+	
+	
 }
