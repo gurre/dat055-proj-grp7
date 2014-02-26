@@ -148,6 +148,7 @@ public class View extends JFrame implements Observer {
 	//Called from Controller when button is pressed
 	//Controls slides
 	public void changeView(int slide){
+		
 		if(slide == 1){
 			layout.show(views, "1");
 		}else if(slide == 2){

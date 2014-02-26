@@ -35,10 +35,13 @@ public class Controller implements ActionListener, KeyListener {
 	
 	//.......Kod som hämtar och ändrar i view.....
 	public void preparePurchase(){
+		System.out.println(">> Controller.preparePurchase()");
 		String password = view.getPassword();
 		String email = view.getUsername();		
-		if( !email.equals("") && !password.equals("") && 
-				model.placeHolderAccount(email,password) ){
+		if( !email.equals("") &&
+			!password.equals("") && 
+			model.placeHolderAccount(email,password)
+		){
 			//view.showAmount(); 
 			
 			view.changeView(viewflowStep++); //Flowstep 2, gives showTrans
@@ -46,11 +49,12 @@ public class Controller implements ActionListener, KeyListener {
 			view.showError("Email or Password is wrong.");
 			
 		}
-		}
+	}
 
 	
 	
 	public void buyBitcoins(double amount, String valuta){
+		System.out.println(">> Controller.buyBitcoins("+amount+","+valuta+")");
 		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
 			viewflowStep++; //Flowstep 3, gives showConfirmation
 			view.changeView(viewflowStep);
@@ -60,6 +64,7 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	public void purchaseComplete(){
+		System.out.println(">> Controller.purchaseComplete()");
 		viewflowStep = 1;
 		view.changeView(viewflowStep);
 		// Send receipt
@@ -75,6 +80,7 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	public void nextStep(){
+		System.out.println(">> Controller.nextStep()");
 		view.changeView(viewflowStep);
 	}
 	
@@ -84,22 +90,16 @@ public class Controller implements ActionListener, KeyListener {
 	
 	// Called from the view
 	public void actionPerformed(ActionEvent e){
-		System.out.println(">> Controller.actionPerformed()");
+		System.out.println(">> Controller.actionPerformed("+(e.getActionCommand())+")");
 		//checks which button is pressed to know which slide will be shown
-		
-		
-		
-		
 		if ("forward".equals(e.getActionCommand())) {  //Checks witch slide the forward button is pressed
 			viewflowStep++;
 		}else if("backwards".equals(e.getActionCommand())){
 			viewflowStep--;
 		}else if("newTrans".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
 			viewflowStep = 1;
-		}else if("newAccount".equals(e.getActionCommand())){ //Get the user to the Amazon signup page
-
+		}/*else if("newAccount".equals(e.getActionCommand())){ //Get the user to the Amazon signup page
 			String url = "https://www.amazon.com/ap/register?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fyourstore%2Fhome%3Fie%3DUTF8%26ref_%3Dgno_newcust";
-
 	        if(Desktop.isDesktopSupported()){
 	            Desktop desktop = Desktop.getDesktop();
 	            try {
@@ -110,7 +110,7 @@ public class Controller implements ActionListener, KeyListener {
 					e1.printStackTrace();
 				}
 	        }
-		}
+		}*/
 		nextStep();
 		
 		//action();

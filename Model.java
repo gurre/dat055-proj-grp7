@@ -24,8 +24,8 @@ class Model extends Observable {
 	
 	//Checks if the email & password is correct
 	public boolean placeHolderAccount(String email, String password){
-		
-		if(email.equals("admin") && password.equals(hashPassword("test"))){
+		System.out.println(">> Model.placeHolderAccount("+email+","+password+")");
+		if(email.equals("admin") && password.equals("test")){
 			return true;
 		}else{
 			return false;
@@ -34,7 +34,7 @@ class Model extends Observable {
 	
 	public String hashPassword(String password)
     {
-		
+		System.out.println(">> Model.hashPassword("+password+")");
         BigInteger hash = null;
         for(int i=0; i<145734; i++){
             try {
