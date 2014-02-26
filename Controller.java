@@ -72,11 +72,11 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	
-	public void action(Object arg){	
+	public void action(Object arg, String currency){	
 
 		System.out.println(">> Controller.action()");
 		
-		model.action(arg);
+		model.action(arg, currency);
 	}
 	
 	public void nextStep(){
@@ -121,7 +121,7 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//Calculate amount of sek/btc
-		action(view.getAmount());
+		action(view.getAmount(),view.getCurrency());
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {}

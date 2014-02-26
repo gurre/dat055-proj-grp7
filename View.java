@@ -56,7 +56,7 @@ public class View extends JFrame implements Observer {
 	private JComboBox currencyList;
 	private CardLayout layout;
 	
-	String[] currency = {"SEK", "BCN"}; //For the currencyList
+	String[] currency = {"SEK", "BTC"}; //For the currencyList
 	
 	
 	View(Controller c) {
@@ -270,5 +270,6 @@ public class View extends JFrame implements Observer {
 	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
 	public String getPassword(){return controller.gethashPassword(new String(welcomePasswordfield.getPassword()));}
 	public String getUsername(){System.out.println(welcomeInput.getText());return welcomeInput.getText();	}
+	public String getCurrency(){return (String)currencyList.getSelectedItem();};
 
 }

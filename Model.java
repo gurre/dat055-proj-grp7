@@ -57,7 +57,7 @@ class Model extends Observable {
     }
 	
 	// Called from controller
-	public void action(Object arg){
+	public void action(Object arg, String currency){
 			System.out.println(">> Model.action()");
 			
 			
@@ -66,8 +66,13 @@ class Model extends Observable {
 			//Updates View in transactionwindow for exchangerates
 
 			if(arg instanceof Double){
+				if(currency.equals("SEK")){
 				//notifyObservers(btcMarkets[0].getExchangeRateForSEK((Double)arg));
 			}
+				else{
+					//notifyObservers...getExchangeRateForBTC
+				}
+				}
 			
 			
 	}
