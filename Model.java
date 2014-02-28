@@ -21,8 +21,7 @@ class Model extends Observable {
 	}
 	
 	//Checks if the email & password is correct
-public boolean placeHolderAccount(String email, String password){
-		
+	public boolean placeHolderAccount(String email, String password){
 		System.out.println(">> Model.placeHolderAccount("+email+")");
 		if(email.equals("admin") && password.equals(hashPassword("test"))){
 			return true;

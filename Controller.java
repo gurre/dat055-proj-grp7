@@ -49,13 +49,9 @@ public class Controller implements ActionListener, KeyListener {
 		}
 	}
 
-
-	
-	
 	public void buyBitcoins(double amount, String valuta){
 		System.out.println(">> Controller.buyBitcoins("+amount+","+valuta+")");
 		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
-			viewflowStep++; //Flowstep 3, gives showConfirmation
 			view.changeView(viewflowStep);
 		}else{
 			view.showError("Please enter a positive number.");
@@ -89,18 +85,18 @@ public class Controller implements ActionListener, KeyListener {
 	
 	// Called from the view
 	public void actionPerformed(ActionEvent e){
-		System.out.println(">> Controller.actionPerformed()");
+		
 		//checks which button is pressed to know which slide will be shown
 		
 			if ("forward".equals(e.getActionCommand())) {  //Checks witch slide the forward button is pressed
 				
 			switch(viewflowStep){
-				case 1: System.out.println(">> PreparePurchase");
+				case 1: System.out.println(">> Controller.actionPerformed(PreparePurchase)");
 						preparePurchase();
 						//viewflowStep++;
 						break;
-				case 2: System.out.println(">> BuyBitcoins");
-						//buyBitcoins();
+				case 2: System.out.println(">> Controller.actionPerformed(BuyBitcoins)");
+						buyBitcoins(view.getAmount(),view.getCurrency());
 						viewflowStep++;
 						break;
 			}
