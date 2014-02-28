@@ -34,7 +34,7 @@ public class Controller implements ActionListener, KeyListener {
 		
 	
 	//.......Kod som hämtar och ändrar i view.....
-	public void preparePurchase(){
+	/*public void preparePurchase(){
 		System.out.println(">> Controller.preparePurchase()");
 		String password = view.getPassword();
 		String email = view.getUsername();		
@@ -48,6 +48,21 @@ public class Controller implements ActionListener, KeyListener {
 		}else{
 			view.showError("Email or Password is wrong.");
 			
+		}
+	}*/
+	
+	public void preparePurchase(){
+		System.out.println(">> Controller.preparePurchase()");
+		String password = view.getPassword();
+		String email = view.getUsername();		
+		if( !email.equals("") && !password.equals("") && 
+		model.placeHolderAccount(email,password) ){
+			//view.showAmount(); 
+		
+			view.changeView(viewflowStep++); //Flowstep 2, gives showTrans
+		}else{
+			view.showError("Email or Password is wrong.");
+		
 		}
 	}
 

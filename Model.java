@@ -5,8 +5,6 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Observable;          //Observable is here
-import java.lang.Runnable;
-import java.lang.Thread;
 import java.math.BigInteger;
 
 // We observe this object from the view
@@ -90,6 +88,4 @@ class Model extends Observable {
 		notifyObservers("exchangeRate");
 		
 	}
-	
-	
 }

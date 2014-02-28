@@ -9,8 +9,12 @@ import org.json.*;
 import java.net.*;
 import java.util.Scanner;
 import java.lang.*;
+import java.lang.Runnable;
+import java.lang.Thread;
 
 class BtcMarket implements Runnable {
+	
+	double latestExchangeRate = -1.0;
 	
 	BtcMarket(){
 		System.out.println(">> BtcMarket.BtcMarket()");
@@ -20,8 +24,8 @@ class BtcMarket implements Runnable {
 	public synchronized void updateRate(){
 		System.out.println(">> BtcMarket.updateRate()");
 		//synchronize(this) {
-			(new Thread(this)).start();
-			//}
+		(new Thread(this)).start();
+		//}
 		
 	}
 	
@@ -32,15 +36,15 @@ class BtcMarket implements Runnable {
 		try {
 			double bestPrice;
 			String out = new Scanner(new URL("http://api.bitcoincharts.com/v1/markets.json").openStream(), "UTF-8").useDelimiter("\\A").next();
+			JSONObject market;
 			JSONArray root = new JSONArray(out);
 			for (int i = 0; i < root.length(); i++) {
-				JSONObject market = root.getJSONObject(i);
-				
+				market = root.getJSONObject(i);
 				if( bestPrice > market.getDouble("avg") ){
 					bestPrice = market.getDouble("avg");
 				}
 			}
-			
+			latestExchangeRate=bestPrice;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
