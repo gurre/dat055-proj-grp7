@@ -104,13 +104,14 @@ public class View extends JFrame implements Observer {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Set commands for buttons
-		loginBtn.setActionCommand("login");
+		loginBtn.setActionCommand("forward");
 		transSendBtn.setActionCommand("forward");
-		newuserSendBtn.setActionCommand("showWelcome");
+		newuserSendBtn.setActionCommand("newUser");
 		transReturnBtn.setActionCommand("backwards");
 		newuserReturnBtn.setActionCommand("showWelcome");
 		newTransBtn.setActionCommand("newTrans");
 		newAccount.setActionCommand("newAccount");
+
 		
 		// Controller handles all actions
 		loginBtn.addActionListener(controller);
@@ -249,6 +250,7 @@ public class View extends JFrame implements Observer {
 		newuserConfPassword.setText("Confirm new Password");
 		newuserInput.setText("Username");
 		newuserSendBtn.setText("Confirm");
+		newuserReturnBtn.setText("Back");
 		
 		
 		view4.add(newuserTypeUser);
@@ -258,10 +260,11 @@ public class View extends JFrame implements Observer {
 		view4.add(newuserConfPassword);
 		view4.add(newuserPasswordfield2);
 		view4.add(newuserSendBtn);
-		
-		view4.setPreferredSize(new Dimension(400, 150));
+		view4.add(newuserReturnBtn);
+		view4.setPreferredSize(new Dimension(400, 160));
 		view4.setLayout(new BoxLayout(view4, BoxLayout.PAGE_AXIS));
 	}
+
 
 	
 	// Getters and setters
@@ -271,5 +274,9 @@ public class View extends JFrame implements Observer {
 	public String getPassword(){return controller.gethashPassword(new String(welcomePasswordfield.getPassword()));}
 	public String getUsername(){System.out.println(welcomeInput.getText());return welcomeInput.getText();	}
 	public String getCurrency(){return (String)currencyList.getSelectedItem();};
+	public String getnewuserPassword(){return controller.gethashPassword(new String(newuserPasswordfield.getPassword()));}
+	public String getnewuserConfPassword(){return controller.gethashPassword(new String(newuserPasswordfield2.getPassword()));}
+	public String getnewuserUsername(){System.out.println(newuserInput.getText());return newuserInput.getText();	}
+
 
 }

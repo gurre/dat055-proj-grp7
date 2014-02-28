@@ -21,20 +21,22 @@ class Model extends Observable {
 	}
 	
 	//Checks if the email & password is correct
-	public boolean placeHolderAccount(String email, String password){
-		System.out.println(">> Model.placeHolderAccount("+email+","+password+")");
-		if(email.equals("admin") && password.equals("test")){
+public boolean placeHolderAccount(String email, String password){
+		
+		System.out.println(">> Model.placeHolderAccount("+email+")");
+		if(email.equals("admin") && password.equals(hashPassword("test"))){
 			return true;
 		}else{
 			return false;
 		}
 	}
+
 	
 	public String hashPassword(String password)
     {
 		System.out.println(">> Model.hashPassword("+password+")");
         BigInteger hash = null;
-        for(int i=0; i<145734; i++){
+        for(int i=0; i<1338; i++){
             try {
 
                 MessageDigest md5 = MessageDigest.getInstance("MD5");
