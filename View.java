@@ -1,5 +1,6 @@
 /**
- * 
+ * View class.
+ * This class only build the GUI and only knows the Controller class.
  */
 
 import java.awt.*;
@@ -57,8 +58,7 @@ public class View extends JFrame implements Observer {
 	private CardLayout layout;
 	
 	String[] currency = {"SEK", "BTC"}; //For the currencyList
-	
-	
+		
 	View(Controller c) {
 		System.out.println(">> View.View()");
 		setController(c);
@@ -111,7 +111,6 @@ public class View extends JFrame implements Observer {
 		newuserReturnBtn.setActionCommand("showWelcome");
 		newTransBtn.setActionCommand("newTrans");
 		newAccount.setActionCommand("newAccount");
-
 		
 		// Controller handles all actions
 		loginBtn.addActionListener(controller);
@@ -129,12 +128,18 @@ public class View extends JFrame implements Observer {
 		this.pack();
 		this.setVisible(true);
 	}
-
+	
+	/*
+	 * This method creates an error message.
+	 */
 	public void showError(String error){
 		JOptionPane.showMessageDialog(view1, error);
 	}
 	
-	// Called from java.util.Observer through Model when the models has changed
+	/*
+	 * This method is called from java.util.Observer through 
+	 * Model when the models has changed.
+	 */
 	public void update(Observable obj, Object arg) {
 		System.out.println(">> View.update()");
 		if(arg instanceof Double){
@@ -146,8 +151,10 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	//Called from Controller when button is pressed
-	//Controls slides
+	/*
+	 * This method changes between the slides and is
+	 * called from Controller when a button is pressed.
+	 */
 	public void changeView(int slide){
 		
 		if(slide == 1){
@@ -161,7 +168,9 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	//To be modified for CardView(?) or other 
+	/*
+	 * This method creates the Cardlayout view.
+	 */
 	public  void makeViews(){
 		views.setLayout(layout);
 		
@@ -179,30 +188,39 @@ public class View extends JFrame implements Observer {
 	    Container frameContainer = this.getContentPane();
 		frameContainer.add(views, BorderLayout.CENTER);	
 	}
-	private void showWelcome(){
-		
-		
+	
+	/*
+	 * This method creates our Welcome slide (first slide)
+	 * Where the user uses its sign-in information.
+	 */
+	private void showWelcome(){		
 		System.out.println(">> View.showWelcome()");
-		//
+
 		loginBtn.setText("Log in");
 		
 		welcomeTitle.setText("Log in with your Account ");
 		welcomeInput.setText("Email");
 		newAccount.setText("New User?");
-		//put every object needed in a panel
 		
+		//put every object needed in a panel		
 		view1.add(welcomeTitle);
 		view1.add(welcomeInput);
 		view1.add(welcomePasswordfield);
 		view1.add(loginBtn);
 		view1.add(newAccount);
+		
 		//Highlights the text in the email-field
 		input1.selectAll();
+		
 		//set the size and layout of the panel	
 		view1.setPreferredSize(new Dimension(400, 150));		
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
 	}
 	
+	/*
+	 * This method creates the Transaction slide (second slide).
+	 * The slide where the user enters an amount to be bought.
+	 */
 	private void showTrans(){
 		System.out.println(">> View.showTrans()");
 		transTitle.setText("Enter the desired amount");
@@ -223,15 +241,16 @@ public class View extends JFrame implements Observer {
 	
 	}
 	
-	private void showConfirmation(){
-		
-		
+	/*
+	 * This method creates the Recipt/confirmation slide (third slide)
+	 * Where the user gets an confirmation and its recipt.
+	 */
+	private void showConfirmation(){	
 		confTitle.setText("Thank you for choosing us!");
 		information.setText("Have a great day!");
 		confInput.setText("Q99886585");
 		view3.add(newTransBtn);
-		newTransBtn.setText("New Transaction?");
-		
+		newTransBtn.setText("New Transaction?");	
 		//put every object needed in a panel
 		view3.add(confTitle);
 		view3.add(information);
@@ -241,17 +260,19 @@ public class View extends JFrame implements Observer {
 		view3.setLayout(new BoxLayout(view3, BoxLayout.PAGE_AXIS));
 	}
 	
-	private void showNewUser(){
-		
+	/*
+	 * This method creates the "New user" slide which the user can use 
+	 * to create a new account.
+	 */
+	private void showNewUser(){		
 		System.out.println(">> View.showNewUser()");
-		//
+		
 		newuserTypeUser.setText("Type in new username");
 		newuserTypePassword.setText("Type in new password");
 		newuserConfPassword.setText("Confirm new Password");
 		newuserInput.setText("Username");
 		newuserSendBtn.setText("Confirm");
-		newuserReturnBtn.setText("Back");
-		
+		newuserReturnBtn.setText("Back");		
 		
 		view4.add(newuserTypeUser);
 		view4.add(newuserInput);
@@ -264,8 +285,6 @@ public class View extends JFrame implements Observer {
 		view4.setPreferredSize(new Dimension(400, 160));
 		view4.setLayout(new BoxLayout(view4, BoxLayout.PAGE_AXIS));
 	}
-
-
 	
 	// Getters and setters
 	public void setController(Controller c){ controller=c; }

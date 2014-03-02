@@ -1,5 +1,6 @@
 /**
- * 
+ * Bitcoinomatic
+ * The main class
  */
 
 class Bitcoinomatic {
