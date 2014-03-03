@@ -84,9 +84,7 @@ class Model extends Observable {
 	 */
 	public void updateExchangeRate(){		
 		btcMarket.updateRate();
-		// Tell the observer we have changed our state
 		setChanged();
-		// Update the view through Observer
-		notifyObservers(btcMarket);		
+		notifyObservers(btcMarket);
 	}
 }

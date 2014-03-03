@@ -2,6 +2,7 @@
 
 /**
  * Gustav får kommentera denna...
+ * Är den så svår?
  */
 
 
@@ -16,7 +17,6 @@ import java.lang.Thread;
 class BtcMarket implements Runnable {
 	
 	double latestExchangeRate = -1.0;
-	
 	String currency = "SEK"; 
 	
 	BtcMarket(){
@@ -26,10 +26,13 @@ class BtcMarket implements Runnable {
 	
 	public synchronized void updateRate(){
 		System.out.println(">> BtcMarket.updateRate()");
-		//synchronize(this) {
-		(new Thread(this)).start();
-		//}
-		
+		try {
+			Thread t = new Thread(this);
+			t.start();
+			t.join();	// Wait for the update to finish
+		} catch(Exception e){
+			System.out.println("   Exception: BtcMarket.updateRate() was finished early");
+		}
 	}
 	
 	
@@ -57,7 +60,7 @@ class BtcMarket implements Runnable {
 		
 		System.out.println("   Best current spot price:"+latestExchangeRate);
 		
-		Thread.currentThread().interrupt();
+		//Thread.currentThread().interrupt();
 		System.out.println("   Thread exited");
 		return;
 	}
@@ -67,5 +70,5 @@ class BtcMarket implements Runnable {
 	
 	// Getters and setters
 	//public void setExchangeRate(double r){ exchangeRate=r; }	/* Not very good to have public */
-	public synchronized void getCurrentExchangeRate(){ return latestExchangeRate; }
+	public synchronized double getCurrentExchangeRate(){ return latestExchangeRate; }
 }

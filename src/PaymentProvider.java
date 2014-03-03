@@ -9,6 +9,7 @@ class PaymentProvider {
 	}
 	
 	public void makePayment(double amount){
-		
+		System.out.println(">> PaymentProvider.makePayment("+amount+")");
+		System.out.println("   Payment processed");
 	}
 }

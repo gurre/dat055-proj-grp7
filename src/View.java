@@ -151,7 +151,8 @@ public class View extends JFrame implements Observer {
 		}
 		if (arg instanceof BtcMarket) {
 			// Hur uppdateras texten?
-			System.out.println("   Got new exchangeRate: "+(((BtcMarket)arg).getCurrentExchangeRate())+")");
+			System.out.println("   Got new exchangeRate: "+(((BtcMarket)arg).getCurrentExchangeRate()));
+			kurs.setText( Double.toString(((BtcMarket)arg).getCurrentExchangeRate()) );
 		}
 	}
 	
