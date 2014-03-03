@@ -8,11 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
+
 import java.math.BigInteger;
 import java.security.*;
 
@@ -52,6 +48,7 @@ public class Controller implements ActionListener, KeyListener {
 	public void buyBitcoins(double amount, String valuta){
 		System.out.println(">> Controller.buyBitcoins("+amount+","+valuta+")");
 		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
+			model.updateExchangeRate();
 			view.changeView(viewflowStep);
 		}else{
 			view.showError("Please enter a positive number.");
@@ -124,23 +121,8 @@ public class Controller implements ActionListener, KeyListener {
 		
 		
 	}
-			
-		/*else if("newAccount".equals(e.getActionCommand())){ //Get the user to the Amazon signup page
-		String url = "https://www.amazon.com/ap/register?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fgp%2Fyourstore%2Fhome%3Fie%3DUTF8%26ref_%3Dgno_newcust";
-        if(Desktop.isDesktopSupported()){
-            Desktop desktop = Desktop.getDesktop();
-            try {
-                desktop.browse(new URI(url));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (URISyntaxException e1) {
-				e1.printStackTrace();
-			}
-        }
-	}*/
 	nextStep();
-		}
-	//action();
+	}
 
 
 	
