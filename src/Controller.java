@@ -1,5 +1,6 @@
 /**
- * 
+ * The Controller class which is the link between model & view
+ * and makes all the calls.
  */
 
 import java.awt.Desktop;
@@ -28,7 +29,11 @@ public class Controller implements ActionListener, KeyListener {
 		viewflowStep=1;
 	}
 	
-	
+	/*
+	 * This method checks if the username & password is correct and flips to the 
+	 * showTrans view. If the username or the password is wrong an errormessage will
+	 * appear and you wont come to the next card.
+	 */
 	public void preparePurchase(){
 		System.out.println(">> Controller.preparePurchase()");
 		String password = view.getPassword();
@@ -36,15 +41,19 @@ public class Controller implements ActionListener, KeyListener {
 		if( !email.equals("") &&
 			!password.equals("") && 
 			model.placeHolderAccount(email,password)){
-			//view.showAmount(); 
-			
-			view.changeView(viewflowStep++); //Flowstep 2, gives showTrans
+			//view.showAmount(); 			
+			view.changeView(viewflowStep++); //Gives showTrans
 		}else{
 			view.showError("Email or Password is wrong.");
 			
 		}
 	}
-
+	
+	/*
+	 * This method checks which currency is SEK or BTC and if the amount
+	 * is greater than zero. Else an error message which tells the user to 
+	 * enter a positive number and you wont come through to the reciept.
+	 */
 	public void buyBitcoins(double amount, String valuta){
 		System.out.println(">> Controller.buyBitcoins("+amount+","+valuta+")");
 		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
@@ -55,77 +64,80 @@ public class Controller implements ActionListener, KeyListener {
 		}
 	}
 	
+	/*
+	 * This method is used when the purchase is completed with no errors
+	 * and gets the user to the start window again.
+	 */
 	public void purchaseComplete(){
 		System.out.println(">> Controller.purchaseComplete()");
 		viewflowStep = 1;
 		view.changeView(viewflowStep);
-		// Send receipt
-		// Restart atm
 	}
 	
-	
+	/*
+	 * Inte säker på hur denna fungerar...
+	 */
 	public void action(Object arg, String currency){	
-
-		System.out.println(">> Controller.action()");
-		
+		System.out.println(">> Controller.action()");		
 		model.action(arg, currency);
 	}
 	
+	/*
+	 * This method changes the view to the current one.
+	 */
 	public void nextStep(){
 		System.out.println(">> Controller.nextStep()");
 		view.changeView(viewflowStep);
 	}
-	
-	
-
-
-	
-	// Called from the view
+		
+	/*
+	 * This method checks which button that is pressed and perfomes the action.
+	 * Called from the View
+	 */
 	public void actionPerformed(ActionEvent e){
 		
 		//checks which button is pressed to know which slide will be shown
 		
-			if ("forward".equals(e.getActionCommand())) {  //Checks witch slide the forward button is pressed
-				
+		if ("forward".equals(e.getActionCommand())){  //Checks if the forward button is pressed			
 			switch(viewflowStep){
 				case 1: System.out.println(">> Controller.actionPerformed(PreparePurchase)");
-						preparePurchase();
-						//viewflowStep++;
-						break;
+					preparePurchase();
+					//viewflowStep++;
+					break;
 				case 2: System.out.println(">> Controller.actionPerformed(BuyBitcoins)");
-						buyBitcoins(view.getAmount(),view.getCurrency());
-						viewflowStep++;
-						break;
-			}
-			
-			
-			}else if("backwards".equals(e.getActionCommand())){
-		viewflowStep--;
-	}else if("newTrans".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
-		viewflowStep = 1;
-	}else if("newAccount".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
-		viewflowStep = 4;
-	}else if("newUser".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
-		String password = view.getnewuserPassword();
-		String confPassword=view.getnewuserConfPassword();
-		String username = view.getnewuserUsername();
-		if( !username.equals("") &&
+					buyBitcoins(view.getAmount(),view.getCurrency());
+					viewflowStep++;
+					break;
+			}		
+		}else if("backwards".equals(e.getActionCommand())){
+			viewflowStep--;
+		}else if("newTrans".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
+			viewflowStep = 1;
+		}else if("newAccount".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
+			viewflowStep = 4;
+			//Checks if the userinformation matches the criterias from the user and adds them to a textfile.
+		}else if("newUser".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
+			String password = view.getnewuserPassword();
+			String confPassword=view.getnewuserConfPassword();
+			String username = view.getnewuserUsername();
+			if( !username.equals("") &&
 				!password.equals(model.hashPassword("")) && 
 				(confPassword.equals(password))){
 				//Add username and password  the textfile
-			viewflowStep = 1;
+				viewflowStep = 1;
 			}else{
 				view.showError("Email or Password is wrong.");
-				
 			}
-		
-		
-	}
-	nextStep();
+		}
+		nextStep();
 	}
 
 
-	
+
+	/*
+	 * When a key is released in the amount field the value 
+	 * should update in a label.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {}
 	@Override
@@ -135,8 +147,6 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {}
-
-	
 	
 	// Getters and setters
 	public void setView(View v){ view=v; }
