@@ -124,7 +124,7 @@ public class View extends JFrame implements Observer {
 
 		//frame changes
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -147,7 +147,11 @@ public class View extends JFrame implements Observer {
 		}
 		if (arg instanceof String) {
 			showError((String)arg);
-			System.out.println("Observed change!");
+			System.out.println("   Error: "+((String)arg));
+		}
+		if (arg instanceof BtcMarket) {
+			// Hur uppdateras texten?
+			System.out.println("   Got new exchangeRate: "+(((BtcMarket)arg).getCurrentExchangeRate())+")");
 		}
 	}
 	

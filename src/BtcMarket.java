@@ -1,7 +1,7 @@
 
 
 /**
- * Gustav får kommentera denna...
+ * Gustav fÃ¥r kommentera denna...
  */
 
 
@@ -55,10 +55,10 @@ class BtcMarket implements Runnable {
 			System.out.println(e);
 		}
 		
-		System.out.println("   Best spot price:"+latestExchangeRate);
+		System.out.println("   Best current spot price:"+latestExchangeRate);
 		
 		Thread.currentThread().interrupt();
-		System.out.println("   Thread interrupted");
+		System.out.println("   Thread exited");
 		return;
 	}
 	
@@ -67,5 +67,5 @@ class BtcMarket implements Runnable {
 	
 	// Getters and setters
 	//public void setExchangeRate(double r){ exchangeRate=r; }	/* Not very good to have public */
-	//public double getExchangeRateForSEK(double sek){ return ; }
+	public synchronized void getCurrentExchangeRate(){ return latestExchangeRate; }
 }

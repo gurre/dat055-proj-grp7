@@ -64,7 +64,7 @@ class Model extends Observable {
     }
 	
 	// Called from controller
-	public void action(Object arg, String currency){
+	/*public void action(Object arg, String currency){
 		System.out.println(">> Model.action()");			
 		//........Updates view...........			
 		//Updates View in transactionwindow for exchangerates
@@ -76,18 +76,17 @@ class Model extends Observable {
 				//notifyObservers...getExchangeRateForBTC
 			}
 		}			
-	}
+	}*/
 	
 	/*
 	 * This method updates the exchange rate from a server and updates the label
 	 * in the View.
 	 */
 	public void updateExchangeRate(){		
-		btcMarket.updateRate();				
-		//currentExchangeRate = newRate;
+		btcMarket.updateRate();
 		// Tell the observer we have changed our state
 		setChanged();
 		// Update the view through Observer
-		notifyObservers("exchangeRate");		
+		notifyObservers(btcMarket);		
 	}
 }

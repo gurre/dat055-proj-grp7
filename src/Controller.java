@@ -77,10 +77,10 @@ public class Controller implements ActionListener, KeyListener {
 	/*
 	 * Inte säker på hur denna fungerar...
 	 */
-	public void action(Object arg, String currency){	
+	/*public void action(Object arg, String currency){	
 		System.out.println(">> Controller.action()");		
 		model.action(arg, currency);
-	}
+	}*/
 	
 	/*
 	 * This method changes the view to the current one.
@@ -143,7 +143,7 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//Calculate amount of sek/btc
-		action(view.getAmount(),view.getCurrency());
+		//action(view.getAmount(),view.getCurrency());
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {}
