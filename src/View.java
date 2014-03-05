@@ -4,6 +4,10 @@
  */
 
 import java.awt.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import javax.swing.JTextPane;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,7 +31,7 @@ public class View extends JFrame implements Observer {
 	private JButton newTransBtn;
 	private JButton newAccount;
 	private JButton loginBtn;
-	private JButton transSendBtn;
+	public JButton transSendBtn;
 	private JButton transReturnBtn;
 	private JButton newuserSendBtn;
 	private JButton newuserReturnBtn;
@@ -44,7 +48,7 @@ public class View extends JFrame implements Observer {
 	private JTextField numeric1;
 	private JTextField welcomeInput;
 	private JTextField transInput;
-	private JTextField confInput;
+	private JTextPane confInput;
 	private JTextField newuserInput;
 	private JPasswordField welcomePasswordfield;
 	private JPasswordField newuserPasswordfield;
@@ -83,7 +87,7 @@ public class View extends JFrame implements Observer {
 		input1 = new JTextField();
 		welcomeInput = new JTextField();
 		transInput = new JTextField();
-		confInput = new JTextField();
+		confInput = new JTextPane();
 		newuserInput = new JTextField();
 		welcomePasswordfield = new JPasswordField();
 		newuserPasswordfield = new JPasswordField();
@@ -168,6 +172,15 @@ public class View extends JFrame implements Observer {
 		}else if(slide == 2){
 			layout.show(views, "2");
 		}else if(slide == 3){
+			if (getCurrency().equals("SEK")){
+				confInput.setText("\n RECEIPT \n You bought " +numeric1.getText()+ " BTC for " + sekVal.getText()+ " SEK. \n We have deposited this in a BitCoin Wallet for you, it is: \n" +getReceipt()+"\n Time:" +getTimeStamp()) ;
+			}
+			else{
+				confInput.setText("\n RECEIPT \n You bought " +numeric1.getText()+ " SEK for " + sekVal.getText()+ " BTC. \n We have deposited this in a BitCoin Wallet for you, it is: \n" +getReceipt()+"\n Time:" +getTimeStamp()) ;
+
+			}
+			layout.show(views, "3");
+			
 			layout.show(views, "3");
 		}else if(slide == 4){
 			layout.show(views, "4");
@@ -254,7 +267,7 @@ public class View extends JFrame implements Observer {
 	private void showConfirmation(){	
 		confTitle.setText("Thank you for choosing us!");
 		information.setText("Have a great day!");
-		confInput.setText("Q99886585");
+		confInput.setEditable(false);
 		view3.add(newTransBtn);
 		newTransBtn.setText("New Transaction?");	
 		//put every object needed in a panel
@@ -265,6 +278,7 @@ public class View extends JFrame implements Observer {
 		view3.setPreferredSize(new Dimension(400, 150));
 		view3.setLayout(new BoxLayout(view3, BoxLayout.PAGE_AXIS));
 	}
+
 	
 	/*
 	 * This method creates the "New user" slide which the user can use 
@@ -295,13 +309,31 @@ public class View extends JFrame implements Observer {
 	// Getters and setters
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
-	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
+	public double getAmount(){
+		try {
+			return Double.parseDouble(numeric1.getText());
+		} catch( Exception e){
+			
+		}
+		return 0.0;
+	} //returns the amount as a double
 	public String getPassword(){return controller.gethashPassword(new String(welcomePasswordfield.getPassword()));}
 	public String getUsername(){System.out.println(welcomeInput.getText());return welcomeInput.getText();	}
 	public String getCurrency(){return (String)currencyList.getSelectedItem();};
 	public String getnewuserPassword(){return controller.gethashPassword(new String(newuserPasswordfield.getPassword()));}
 	public String getnewuserConfPassword(){return controller.gethashPassword(new String(newuserPasswordfield2.getPassword()));}
 	public String getnewuserUsername(){System.out.println(newuserInput.getText());return newuserInput.getText();	}
-
+	public String getTimeStamp(){
+		java.util.Date date= new java.util.Date();
+		String time = new Timestamp(date.getTime()).toString();
+		return time;
+	};
+	public String getReceipt(){
+		String time = getTimeStamp();
+		System.out.println(controller.gethashPassword(time));
+		return controller.gethashPassword(time);
+		
+		}
+	
 
 }
