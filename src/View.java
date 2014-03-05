@@ -32,7 +32,7 @@ public class View extends JFrame implements Observer {
 	private JButton newuserSendBtn;
 	private JButton newuserReturnBtn;
 	private JLabel kurs;
-	private JLabel sekVal;
+	public JLabel sekVal;
 	private JLabel information;
 	private JLabel welcomeTitle;
 	private JLabel confTitle;
@@ -152,7 +152,8 @@ public class View extends JFrame implements Observer {
 		if (arg instanceof BtcMarket) {
 			// Hur uppdateras texten?
 			System.out.println("   Got new exchangeRate: "+(((BtcMarket)arg).getCurrentExchangeRate()));
-			kurs.setText( Double.toString(((BtcMarket)arg).getCurrentExchangeRate()) );
+			
+			sekVal.setText( Double.toString(getAmount()*((BtcMarket)arg).getCurrentExchangeRate()) );
 		}
 	}
 	

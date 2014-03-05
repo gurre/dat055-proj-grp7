@@ -143,7 +143,9 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//Calculate amount of sek/btc
-		//action(view.getAmount(),view.getCurrency());
+		//model.action(view.getAmount(),view.getCurrency());
+		model.updateExchangeRate();
+		//view.sekVal.setText(view.getAmount());
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {}

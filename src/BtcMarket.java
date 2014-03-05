@@ -47,7 +47,6 @@ class BtcMarket implements Runnable {
 			JSONArray root = new JSONArray(out);
 			for (int i = 0; i < root.length(); i++) {
 				market = root.getJSONObject(i);
-				
 				if( currency.equals(market.optString("currency")) && bestPrice > market.optDouble("avg") ){
 					System.out.println("   Available market: "+(market.optString("currency"))+" @ "+(market.optDouble("avg")));
 					bestPrice = market.getDouble("avg");
