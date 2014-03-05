@@ -288,7 +288,7 @@ public class View extends JFrame implements Observer {
 		view4.add(newuserPasswordfield2);
 		view4.add(newuserSendBtn);
 		view4.add(newuserReturnBtn);
-		view4.setPreferredSize(new Dimension(400, 160));
+		view4.setPreferredSize(new Dimension(400, 200));
 		view4.setLayout(new BoxLayout(view4, BoxLayout.PAGE_AXIS));
 	}
 	
