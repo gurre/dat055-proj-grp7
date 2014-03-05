@@ -295,7 +295,14 @@ public class View extends JFrame implements Observer {
 	// Getters and setters
 	public void setController(Controller c){ controller=c; }
 	public Controller getController(){ return controller; }
-	public double getAmount(){return Double.parseDouble(numeric1.getText());} //returns the amount as a double
+	public double getAmount(){
+		try {
+			return Double.parseDouble(numeric1.getText());
+		} catch( Exception e){
+			
+		}
+		return 0.0;
+	} //returns the amount as a double
 	public String getPassword(){return controller.gethashPassword(new String(welcomePasswordfield.getPassword()));}
 	public String getUsername(){System.out.println(welcomeInput.getText());return welcomeInput.getText();	}
 	public String getCurrency(){return (String)currencyList.getSelectedItem();};
