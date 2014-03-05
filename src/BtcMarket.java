@@ -50,7 +50,7 @@ class BtcMarket implements Runnable {
 		if( !isLocked() ){
 			setLocked(true);
 			try {
-				Thread.sleep(3000);
+				//Thread.sleep(3000);
 				double bestPrice = 999999999.0;
 				String out = new Scanner(new URL("http://api.bitcoincharts.com/v1/markets.json").openStream(), "UTF-8").useDelimiter("\\A").next();
 				//System.out.println("   Got:"+out);
