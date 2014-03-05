@@ -23,8 +23,6 @@ public class Controller implements ActionListener, KeyListener {
 	// keep track of which slide that will be shown
 	private int viewflowStep;
 	
-	private boolean updating=false;
-	
 	
 	Controller() {
 		System.out.println(">> Controller.Controller()");
@@ -146,10 +144,7 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		//Calculate amount of sek/btc
 		//model.action(view.getAmount(),view.getCurrency());
-			view.transSendBtn.setEnabled(false);
-			model.updateExchangeRate();
-			view.transSendBtn.setEnabled(true);
-		//}
+		model.updateExchangeRate();
 		//view.sekVal.setText(view.getAmount());
 	}
 	@Override
