@@ -16,7 +16,7 @@ import java.lang.Thread;
 
 class BtcMarket implements Runnable {
 	
-	double latestExchangeRate = -1.0;
+	double latestExchangeRate = 999999999.0;
 	String currency = "SEK"; 
 	
 	BtcMarket(){
