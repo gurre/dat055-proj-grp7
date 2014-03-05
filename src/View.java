@@ -6,12 +6,14 @@
 import java.awt.*;
 import java.sql.Timestamp;
 import java.util.Date;
+
 import javax.swing.JTextPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -88,6 +90,7 @@ public class View extends JFrame implements Observer {
 		welcomeInput = new JTextField();
 		transInput = new JTextField();
 		confInput = new JTextPane();
+		confInput.setAlignmentX(Component.LEFT_ALIGNMENT);
 		newuserInput = new JTextField();
 		welcomePasswordfield = new JPasswordField();
 		newuserPasswordfield = new JPasswordField();
@@ -99,6 +102,7 @@ public class View extends JFrame implements Observer {
 		view4 = new JPanel();
 		layout = new CardLayout();
 		currencyList = new JComboBox(currency);
+		currencyList.setAlignmentX(Component.LEFT_ALIGNMENT);
 		numeric1 = new JTextField("0.00");
 				
 		//Create cards	
@@ -257,6 +261,7 @@ public class View extends JFrame implements Observer {
 		view2.add(sekVal);
 		view2.add(transSendBtn);
 		view2.add(transReturnBtn);
+		view2.add(Box.createRigidArea(new Dimension(0,10)));		
 		view2.add(currencyList);
 		//Highlights all the text in the amount-field
 		transInput.selectAll();
@@ -273,12 +278,13 @@ public class View extends JFrame implements Observer {
 		confTitle.setText("Thank you for choosing us!");
 		information.setText("Have a great day!");
 		confInput.setEditable(false);
-		view3.add(newTransBtn);
-		newTransBtn.setText("New Transaction?");	
+			
 		//put every object needed in a panel
 		view3.add(confTitle);
 		view3.add(information);
 		view3.add(confInput);	
+		view3.add(newTransBtn);
+		newTransBtn.setText("New Transaction?");
 		//set the size and layout of the panel	
 		view3.setPreferredSize(new Dimension(400, 150));
 		view3.setLayout(new BoxLayout(view3, BoxLayout.PAGE_AXIS));
