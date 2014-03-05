@@ -27,7 +27,7 @@ public class View extends JFrame implements Observer {
 	private JButton newTransBtn;
 	private JButton newAccount;
 	private JButton loginBtn;
-	private JButton transSendBtn;
+	public JButton transSendBtn;
 	private JButton transReturnBtn;
 	private JButton newuserSendBtn;
 	private JButton newuserReturnBtn;
