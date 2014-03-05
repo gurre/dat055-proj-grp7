@@ -28,6 +28,7 @@ class BtcMarket implements Runnable {
 		System.out.println(">> BtcMarket.updateRate()");
 		try {
 			Thread t = new Thread(this);
+			
 			t.start();
 			t.join();	// Wait for the update to finish
 		} catch(Exception e){
@@ -40,6 +41,7 @@ class BtcMarket implements Runnable {
 	public void run() {
 		System.out.println("   Updating Btc exchange rates async");
 		try {
+			Thread.sleep(3000);
 			double bestPrice = 999999999.0;
 			String out = new Scanner(new URL("http://api.bitcoincharts.com/v1/markets.json").openStream(), "UTF-8").useDelimiter("\\A").next();
 			//System.out.println("   Got:"+out);
