@@ -56,13 +56,15 @@ public class Controller implements ActionListener, KeyListener {
 	 * is greater than zero. Else an error message which tells the user to 
 	 * enter a positive number and you wont come through to the reciept.
 	 */
-	public void buyBitcoins(double amount, String valuta){
+	public boolean buyBitcoins(double amount, String valuta){
 		System.out.println(">> Controller.buyBitcoins("+amount+","+valuta+")");
-		if( valuta.equals("SEK") || valuta.equals("BTC") && amount < 0.00){
+		if( (valuta.equals("SEK") || valuta.equals("BTC")) && amount > 0.00){
 			model.updateExchangeRate();
 			view.changeView(viewflowStep);
+			return true;
 		}else{
 			view.showError("Please enter a positive number.");
+			return false;
 		}
 	}
 	
@@ -107,9 +109,11 @@ public class Controller implements ActionListener, KeyListener {
 					//viewflowStep++;
 					break;
 				case 2: System.out.println(">> Controller.actionPerformed(BuyBitcoins)");
-					buyBitcoins(view.getAmount(),view.getCurrency());
-					viewflowStep++;
-					break;
+					if(buyBitcoins(view.getAmount(),view.getCurrency())){
+						viewflowStep++;}
+					else{
+						break;
+					}
 			}		
 		}else if("backwards".equals(e.getActionCommand())){
 			viewflowStep--;
@@ -118,6 +122,8 @@ public class Controller implements ActionListener, KeyListener {
 		}else if("newAccount".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
 			viewflowStep = 4;
 			//Checks if the userinformation matches the criterias from the user and adds them to a textfile.
+		}else if ("list".equals(e.getActionCommand())){
+			model.updateExchangeRate();
 		}else if("newUser".equals(e.getActionCommand())||"showWelcome".equals(e.getActionCommand())){
 			String password = view.getnewuserPassword();
 			String confPassword=view.getnewuserConfPassword();

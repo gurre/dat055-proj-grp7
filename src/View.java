@@ -115,6 +115,7 @@ public class View extends JFrame implements Observer {
 		newuserReturnBtn.setActionCommand("showWelcome");
 		newTransBtn.setActionCommand("newTrans");
 		newAccount.setActionCommand("newAccount");
+		currencyList.setActionCommand("list");
 		
 		// Controller handles all actions
 		loginBtn.addActionListener(controller);
@@ -125,6 +126,7 @@ public class View extends JFrame implements Observer {
 		newTransBtn.addActionListener(controller);
 		newAccount.addActionListener(controller);
 		numeric1.addKeyListener(controller);
+		currencyList.addActionListener(controller);
 
 		//frame changes
 		this.setLocationRelativeTo(null);
@@ -156,8 +158,11 @@ public class View extends JFrame implements Observer {
 		if (arg instanceof BtcMarket) {
 			// Hur uppdateras texten?
 			System.out.println("   Got new exchangeRate: "+(((BtcMarket)arg).getCurrentExchangeRate()));
-			
-			sekVal.setText( Double.toString(getAmount()*((BtcMarket)arg).getCurrentExchangeRate()) );
+			if( currencyList.getSelectedItem() == "SEK"){
+				sekVal.setText( "Exchange rate: " + Double.toString(getAmount()*((BtcMarket)arg).getCurrentExchangeRate()) + " " + currencyList.getSelectedItem() );
+			}else if(currencyList.getSelectedItem() == "BTC"){
+				sekVal.setText("Exchange rate: " + Double.toString(getAmount()/((BtcMarket)arg).getCurrentExchangeRate()) + " " + currencyList.getSelectedItem());
+			}
 		}
 	}
 	
@@ -243,7 +248,7 @@ public class View extends JFrame implements Observer {
 	private void showTrans(){
 		System.out.println(">> View.showTrans()");
 		transTitle.setText("Enter the desired amount");
-		sekVal.setText("x 5000");
+		sekVal.setText("Exchange rate: ");
 		transSendBtn.setText("Confirm");
 		transReturnBtn.setText("Back");
 		
