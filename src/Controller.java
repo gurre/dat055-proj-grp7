@@ -8,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.*;
 
 
@@ -36,13 +38,13 @@ public class Controller implements ActionListener, KeyListener {
 	 * showTrans view. If the username or the password is wrong an errormessage will
 	 * appear and you wont come to the next card.
 	 */
-	public void preparePurchase(){
+	public void preparePurchase() throws Exception{
 		System.out.println(">> Controller.preparePurchase()");
 		String password = view.getPassword();
 		String email = view.getUsername();		
 		if( !email.equals("") &&
 			!password.equals("") && 
-			model.placeHolderAccount(email,password)){
+			model.checkUser(email,password)){
 			//view.showAmount(); 			
 			view.changeView(viewflowStep++); //Gives showTrans
 		}else{
@@ -105,7 +107,12 @@ public class Controller implements ActionListener, KeyListener {
 		if ("forward".equals(e.getActionCommand())){  //Checks if the forward button is pressed			
 			switch(viewflowStep){
 				case 1: System.out.println(">> Controller.actionPerformed(PreparePurchase)");
+				try {
 					preparePurchase();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 					//viewflowStep++;
 					break;
 				case 2: System.out.println(">> Controller.actionPerformed(BuyBitcoins)");
@@ -132,6 +139,12 @@ public class Controller implements ActionListener, KeyListener {
 				!password.equals(model.hashPassword("")) && 
 				(confPassword.equals(password))){
 				//Add username and password  the textfile
+				try {
+					model.newUser(username, password);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				viewflowStep = 1;
 			}else{
 				view.showError("Email or Password is wrong.");
@@ -167,5 +180,9 @@ public class Controller implements ActionListener, KeyListener {
 	public void setModel(Model m){ model=m; }
 	public Model getModel(){ return model; }
 	public String getPassword(){return view.getPassword();}
+	public String getUsername(){return view.getUsername();}
 	public String gethashPassword(String password){return model.hashPassword(password);}
+	
+	
+	
 }

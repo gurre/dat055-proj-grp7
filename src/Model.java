@@ -5,7 +5,14 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Observable;          //Observable is here
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.net.URL;
 
 /* 
  * The Model Class is where we make all calculations & and handle all the data.
@@ -22,13 +29,41 @@ class Model extends Observable {
 		paymentProvider = new PaymentProvider();
 		btcMarket = new BtcMarket();
 	}
+	public boolean checkUser (String username, String password) throws Exception {
+        String line = null;
+        
+  
+        BufferedReader reader = new BufferedReader(new FileReader("account.txt"));
+
+        while((line=reader.readLine())!=null){
+
+            if(line.equals(username)){ 
+                line=reader.readLine();
+                
+                if (line.equals(password)){
+                	reader.close();
+                    return true;
+                }
+
+                else{
+                	reader.close();
+                    return false;
+                }
+
+            }
+
+        }	
+        reader.close();
+        return false;	
+    }
 	
 	/*
 	 * This method checks if the email & password is correct when the user loggin by
 	 * match the email & a hashed password against a textfile
 	 */
-	public boolean placeHolderAccount(String email, String password){
-		System.out.println(">> Model.placeHolderAccount("+email+")");
+	/*public boolean checkUser(String username, String password){
+		System.out.println(">> Model.checkUser("+username+")");
+		return checkUser(username, password);
 		
 		if(email.equals("admin") && password.equals(hashPassword("test"))){
 			return true;
@@ -36,7 +71,7 @@ class Model extends Observable {
 			return false;
 		}
 	}
-	
+	/*
 	/*
 	 * This method returns a hashed password of the users password.
 	 */
@@ -87,4 +122,37 @@ class Model extends Observable {
 		setChanged();
 		notifyObservers(btcMarket);
 	}
+	public boolean newUser(String username, String password)throws Exception{
+        String line = null;
+        
+        
+        BufferedReader reader = new BufferedReader(new FileReader("account.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("account.txt", true));
+        //PrintWriter writer = new PrintWriter ("account.txt");
+
+        while((line=reader.readLine())!=null){
+        	System.out.println(line);
+        	
+            if(line.equals(username)){ 
+            	writer.close();
+            	reader.close();
+            	setChanged();
+        		notifyObservers("cannot create user");
+            	
+            	return false;
+            }
+
+        }
+
+
+        	
+            writer.write(username);
+            writer.newLine();
+            writer.write(password);
+            writer.newLine();
+            writer.close();
+            return true;
+            
+
+    }
 }
