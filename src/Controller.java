@@ -46,7 +46,7 @@ public class Controller implements ActionListener, KeyListener {
 			//view.showAmount(); 			
 			view.changeView(viewflowStep++); //Gives showTrans
 		}else{
-			view.showError("Email or Password is wrong.");
+			view.showError("Username or Password is wrong.");
 			
 		}
 	}

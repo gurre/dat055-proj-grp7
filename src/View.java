@@ -227,7 +227,7 @@ public class View extends JFrame implements Observer {
 		loginBtn.setText("Log in");
 		
 		welcomeTitle.setText("Log in with your Account ");
-		welcomeInput.setText("Email");
+		welcomeInput.setText("Username");
 		newAccount.setText("New User?");
 		
 		//put every object needed in a panel		
