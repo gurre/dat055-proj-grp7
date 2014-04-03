@@ -1,6 +1,6 @@
 /**
  * View class.
- * This class only build the GUI and only knows the Controller class.
+ * This class only builds the GUI and only knows the Controller class.
  */
 
 import java.awt.*;
@@ -141,6 +141,7 @@ public class View extends JFrame implements Observer {
 	
 	/*
 	 * This method creates an error message.
+	 * @param Desired text in error message
 	 */
 	public void showError(String error){
 		JOptionPane.showMessageDialog(view1, error);
@@ -149,6 +150,8 @@ public class View extends JFrame implements Observer {
 	/*
 	 * This method is called from java.util.Observer through 
 	 * Model when the models has changed.
+	 * @param String for error message
+	 * @param BtcMarket Object to update text
 	 */
 	public void update(Observable obj, Object arg) {
 		System.out.println(">> View.update()");
@@ -173,6 +176,7 @@ public class View extends JFrame implements Observer {
 	/*
 	 * This method changes between the slides and is
 	 * called from Controller when a button is pressed.
+	 * @Param int with slide id
 	 */
 	public void changeView(int slide){
 		
