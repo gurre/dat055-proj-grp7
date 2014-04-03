@@ -139,7 +139,7 @@ public class View extends JFrame implements Observer {
 		this.setVisible(true);
 	}
 	
-	/*
+	/**
 	 * This method creates an error message.
 	 * @param Desired text in error message
 	 */
@@ -147,7 +147,7 @@ public class View extends JFrame implements Observer {
 		JOptionPane.showMessageDialog(view1, error);
 	}
 	
-	/*
+	/**
 	 * This method is called from java.util.Observer through 
 	 * Model when the models has changed.
 	 * @param String for error message
@@ -173,7 +173,7 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	/*
+	/**
 	 * This method changes between the slides and is
 	 * called from Controller when a button is pressed.
 	 * @Param int with slide id
@@ -200,7 +200,7 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	/*
+	/**
 	 * This method creates the Cardlayout view.
 	 */
 	public  void makeViews(){
@@ -221,7 +221,7 @@ public class View extends JFrame implements Observer {
 		frameContainer.add(views, BorderLayout.CENTER);	
 	}
 	
-	/*
+	/**
 	 * This method creates our Welcome slide (first slide)
 	 * Where the user uses its sign-in information.
 	 */
@@ -249,7 +249,7 @@ public class View extends JFrame implements Observer {
 		view1.setLayout(new BoxLayout(view1, BoxLayout.PAGE_AXIS));
 	}
 	
-	/*
+	/**
 	 * This method creates the Transaction slide (second slide).
 	 * The slide where the user enters an amount to be bought.
 	 */
@@ -274,7 +274,7 @@ public class View extends JFrame implements Observer {
 	
 	}
 	
-	/*
+	/**
 	 * This method creates the Recipt/confirmation slide (third slide)
 	 * Where the user gets an confirmation and its recipt.
 	 */
@@ -295,7 +295,7 @@ public class View extends JFrame implements Observer {
 	}
 
 	
-	/*
+	/**
 	 * This method creates the "New user" slide which the user can use 
 	 * to create a new account.
 	 */
